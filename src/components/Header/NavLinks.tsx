@@ -1,9 +1,8 @@
 'use client'
 import Link from 'next/link'
-import Icon from '../Adapters/Icon'
-import { useSelectedLayoutSegment } from 'next/navigation'
-import { DropdownHover } from './DropdownHover'
 import useNavLinks from '@/hooks/useNavLinks'
+import { DropdownHover } from './DropdownHover'
+import { useSelectedLayoutSegment } from 'next/navigation'
 
 export default function NavLinks() {
   const segment = useSelectedLayoutSegment()
@@ -11,7 +10,7 @@ export default function NavLinks() {
 
   return (
     <>
-      {navLinks?.map((link) => {
+      {navLinks?.map((link: any) => {
         if (link.dinamic_submenu_document_type) {
           return (
             <DropdownHover
@@ -36,7 +35,7 @@ export default function NavLinks() {
         return (
           <Link key={link.name} href={link.route}>
             <span
-              className={`${segment === link.route.replace('/', '') ? 'font-bold' : 'font-normal'} cursor-pointer text-white hover:opacity-70`}
+              className={`${segment === link.route.replace('/', '') ? 'font-bold' : 'font-normal'} cursor-pointer text-brand-gray-700 hover:opacity-70`}
               suppressHydrationWarning
             >
               {link.name}
@@ -44,11 +43,8 @@ export default function NavLinks() {
           </Link>
         )
       })}
-      <a href="/" rel="noreferrer" target="_blank">
-        <Icon icon="mdi:facebook" className="text-white" />
-      </a>
-      <a href="/" rel="noreferrer" target="_blank">
-        <Icon icon="mdi:instagram" className="text-white" />
+      <a href="/" rel="noreferrer" target="_blank" className='text-brand-gray-700 border-solid border-2 border-brand-gray-700 px-4 py-1 rounded-lg'>
+        Cadastro
       </a>
     </>
   )

@@ -1,22 +1,21 @@
 'use client'
-import TopBar from './TopBar'
-import NavLinks from './NavLinks'
-import { useWindowScroll } from 'react-use'
 import Link from 'next/link'
-import { Container } from '../Partials/Container'
-import useMenuHamburguerStore from '../../stores/useMenuHamburguerStore'
+import TopBar from './TopBar'
 import { useEffect } from 'react'
+import NavLinks from './NavLinks'
 import Icon from '../Adapters/Icon'
-import SearchForm from '../Forms/SearchForm'
-import { usePrismicLangs } from '@/hooks/usePrismicLangs'
+import { useWindowScroll } from 'react-use'
 import { useCookies } from '@/stores/useCookies'
+import { Container } from '../Partials/Container'
+import { usePrismicLangs } from '@/hooks/usePrismicLangs'
+import useMenuHamburguerStore from '../../stores/useMenuHamburguerStore'
 
 export function Header() {
   const { y } = useWindowScroll()
-  const { setShowMenuHamburguer } = useMenuHamburguerStore()
+  const { addCookie } = useCookies()
   const { availableLangs } = usePrismicLangs()
+  const { setShowMenuHamburguer } = useMenuHamburguerStore()
   const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
-  const { addCookie, getCookie } = useCookies()
 
   function addLangCookie(lang: string) {
     addCookie('lang', lang)
@@ -29,9 +28,8 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full shadow-xl backdrop-blur transition-all ${
-        y > 0 ? 'bg-black/70' : 'bg-black'
-      } `}
+      className={`sticky top-0 z-50 w-full shadow-xl backdrop-blur transition-all ${y > 0 ? 'bg-white/70' : 'bg-white'
+        } `}
     >
       <TopBar />
       <Container>
@@ -44,28 +42,14 @@ export function Header() {
               style={{ height: y > 0 ? '3rem' : '4rem' }}
             />
           </Link>
-          <SearchForm />
           <div className="hidden items-center gap-3 md:flex">
             <NavLinks />
-            {availableLangs &&
-              availableLangs.length > 1 &&
-              availableLangs?.map((lang) => (
-                <span
-                  className="text-white text-sm cursor-pointer hover:opacity-70 uppercase"
-                  key={lang.id}
-                  onClick={() => addLangCookie(lang.id)}
-                  title={lang.name}
-                  style={{ opacity: getCookie('lang') === lang.id ? 1 : 0.5 }}
-                >
-                  {lang.id.split('-')[1]}
-                </span>
-              ))}
           </div>
           <div
             className="md:hidden"
             onClick={() => setShowMenuHamburguer(true)}
           >
-            <Icon icon="mdi:menu" className="text-3xl text-white" />
+            <Icon icon="mdi:menu" className="text-3xl text-brand-gray-700" />
           </div>
         </div>
       </Container>

@@ -21,89 +21,69 @@ export default function Footer() {
   return (
     <footer className="border-t">
       <Container>
-        <div className="grid grid-cols-12 py-10 gap-2">
-          <div className=" col-span-12 md:col-span-4">
-            <div className="flex justify-center md:justify-start">
-              <div className="flex w-fit items-center justify-center rounded-full bg-black p-1 mb-2">
-                <img
-                  src="/img/logo.png"
-                  data-fancybox
-                  data-caption="Single image"
-                  alt="Logo"
-                  className="w-20 cursor-pointer"
-                />
-              </div>
-            </div>
-            <p className="mt-4 text-center lg:text-start">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-              autem adipisci magnam rerum quae distinctio sequi eius ipsam
-              delectus fugiat harum ratione, dignissimos qui soluta
-              reprehenderit et laboriosam consequuntur alias!
-            </p>
+        <div className="grid grid-cols-5 py-10 gap-x-4">
+          <div className="flex items-center justify-center rounded-full p-1 mb-2">
+            <img
+              data-fancybox
+              alt="Logo Cosmopolita"
+              data-caption="Single image"
+              className="w-1/2 cursor-pointer"
+              src="/img/logos/logo-cosmopolita.png"
+            />
           </div>
 
-          <div className="col-span-12 md:col-span-8 grid grid-cols-12 gap-4">
-            <div className="col-span-12 flex gap-4 justify-center md:justify-end items-center flex-wrap">
-              {navLinks.map((link) => {
-                return (
-                  <Link href={link.route} key={link.name}>
-                    <strong>{link.name}</strong>
-                  </Link>
-                )
-              })}
-            </div>
-            <div className="col-span-12 md:col-span-2"></div>
+          <div className="gap-4">
+            <h2 className='font-bold text-2xl mb-2'>Área Administrativa</h2>
+            <button className='w-full bg-brand-blue border-brand-blue border-solid border-2 text-xl rounded-3xl text-white hover:scale-105 transition-all'>
+              Login
+            </button>
+            <button className='w-full border-brand-blue border-solid border-2 text-xl rounded-3xl text-brand-blue hover:scale-105 transition-all mt-2'>
+              Cadastro
+            </button>
+          </div>
 
-            <div className="col-span-12 md:col-span-4 flex flex-col items-center md:items-end">
-              <p className="font-bold text-center md:text-end">
-                {stringData(langData.AddressTitle)}
-              </p>
-              <p className="text-xs text-center md:text-end">
-                {infos?.data.endereco}
-              </p>
+          <div className='hidden md:flex flex-col'>
+            <h2 className='font-bold text-2xl text-black mb-2'>Sobre nós</h2>
+            <a href="http://" target="_blank" rel="noopener noreferrer" className='text-brand-gray-50 text-sm cursor-pointer hover:underline'>
+              A Cosmopolista
+            </a>
+            <a href="http://" target="_blank" rel="noopener noreferrer" className='text-brand-gray-50 text-sm cursor-pointer hover:underline'>
+              História
+            </a>
+            <a href="http://" target="_blank" rel="noopener noreferrer" className='text-brand-gray-50 text-sm cursor-pointer hover:underline'>
+              Diretoria
+            </a>
+          </div>
+
+          <div className='flex flex-col'>
+            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="http://" target="_blank" rel="noopener noreferrer">
+              Controle de atas
+            </a>
+            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="http://" target="_blank" rel="noopener noreferrer">
+              Galeria de Gestões
+            </a>
+            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="http://" target="_blank" rel="noopener noreferrer">
+              Notícias
+            </a>
+            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="http://" target="_blank" rel="noopener noreferrer">
+              Fale Conosco
+            </a>
+          </div>
+
+          <div className='flex flex-col'>
+            <h2 className='font-bold text-2xl hover:text-brand-blue hover:underline'>
+              Siga nos
+            </h2>
+
+            <div className='flex gap-x-2 mt-1'>
+              <a href="#" target="_blank">
+                <img src="/img/icons/instagram.svg" alt="" />
+              </a>
+              <a href="#" target="_blank">
+                <img src="/img/icons/facebook.svg" alt="" />
+              </a>
             </div>
-            <div className="col-span-12 md:col-span-4 flex flex-col items-center md:items-end">
-              <p className="font-bold text-center md:text-end">
-                Horário de atendimento
-              </p>
-              <p className="text-xs text-center md:text-end">
-                Segunda à sexta, de 8h às 17h
-              </p>
-            </div>
-            <div className="col-span-12 md:col-span-2 flex flex-col items-center md:items-end">
-              <p className="font-bold text-center md:text-end">
-                {stringData(langData.FollowUs)}
-              </p>
-              <div className="flex gap-2">
-                {infos?.data.facebook && (
-                  <a
-                    href={infos?.data.facebook}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    <Icon icon="mdi:facebook" className="text-2xl" />
-                  </a>
-                )}
-                {infos?.data.instagram && (
-                  <a
-                    href={infos?.data.instagram}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    <Icon icon="mdi:instagram" className="text-2xl" />
-                  </a>
-                )}
-                {infos?.data.linkedin && (
-                  <a
-                    href={infos?.data.linkedin}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    <Icon icon="mdi:linkedin" className="text-2xl" />
-                  </a>
-                )}
-              </div>
-            </div>
+
           </div>
         </div>
       </Container>

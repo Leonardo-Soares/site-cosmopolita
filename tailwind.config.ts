@@ -12,8 +12,13 @@ const config: Config = {
       colors: {
         brand: {
           green: '#00AEA4',
+          greenSecondary: '#02782F',
+          blue: '#052979',
+          blue700: '#71D0FF',
           gray: {
-            50: '#949494',
+            50: '#707070',
+            100: '#F0F0F0',
+            700: '#353535',
           },
         },
       },
