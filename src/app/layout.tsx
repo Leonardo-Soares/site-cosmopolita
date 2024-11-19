@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'BPN14 | Home',
+  title: 'A∴ R∴ L∴ S∴ Cosmopolita n.° 2',
   description: 'Boilerplate Next 15 with Prismic, TypeScript and TailwindCSS',
   keywords: ['Boilerplate', 'Next', 'Prismic', 'TypeScript', 'TailwindCSS'],
   twitter: {
@@ -68,7 +68,7 @@ export default function RootLayout({
             },
           }}
         />
-        <DialogPrivacityPolicy />
+        {/* <DialogPrivacityPolicy /> */}
       </body>
     </html>
   )

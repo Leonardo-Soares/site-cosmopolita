@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'BPN14 | Sobre nós',
+  title: 'A∴ R∴ L∴ S∴ Cosmopolita n.° 2 | Sobre nós',
 }
 
 export default function Home() {
