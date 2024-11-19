@@ -19,9 +19,8 @@ export function MenuHamburguer() {
 
   return (
     <div
-      className={`fixed top-0 z-[999999] flex h-full w-[90%] items-center justify-center bg-white/80 bg-[url(/img/background.png)] bg-cover bg-fixed bg-center shadow-2xl backdrop-blur-md md:hidden ${
-        showMenuHamburguer ? 'right-0' : '-right-[700px]'
-      } overflow-y-auto transition-all`}
+      className={`fixed top-0 z-[999999] flex h-full w-[90%] items-center justify-center bg-white/80 bg-[url(/img/background.png)] bg-cover bg-fixed bg-center shadow-2xl backdrop-blur-md md:hidden ${showMenuHamburguer ? 'right-0' : '-right-[700px]'
+        } overflow-y-auto transition-all`}
     >
       <div className="relative h-full w-full py-20">
         <Icon
@@ -35,39 +34,15 @@ export function MenuHamburguer() {
 
         <div className="py-20">
           {navLinks.map((link) => {
-            if (link.submenu) {
-              return (
-                <div
-                  key={link.name}
-                  className="border-brand-yellow cursor-pointer border-b bg-white text-2xl text-zinc-900"
-                >
-                  <div className="flex justify-between border-b p-5">
-                    <div className="">{link.name}</div>
-                    <ChevronDown size={20} className="mt-2 text-black/40" />
-                  </div>
-                  <div className="flex flex-col gap-2 px-5 py-1">
-                    {link.submenu.map((sublink, index) => (
-                      <div
-                        key={sublink.label}
-                        className={`cursor-pointer bg-white p-5 text-xl text-zinc-900 ${link.submenu.length - 1 === index ? '' : 'border-b'}`}
-                        onClick={() => handleRouting(sublink.href)}
-                      >
-                        {sublink.label}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )
-            } else
-              return (
-                <div
-                  key={link.name}
-                  className="border-brand-yellow cursor-pointer border-b bg-white p-5 text-2xl text-zinc-900"
-                  onClick={() => handleRouting(link.route)}
-                >
-                  {link.name}
-                </div>
-              )
+            return (
+              <div
+                key={link.name}
+                className="border-brand-yellow cursor-pointer border-b bg-white p-5 text-2xl text-zinc-900"
+                onClick={() => handleRouting(link.route)}
+              >
+                {link.name}
+              </div>
+            )
           })}
 
           <div className="bg-white py-10">
