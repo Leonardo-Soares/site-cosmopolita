@@ -5,7 +5,7 @@ import React from 'react'
 export const fetchCache = 'force-no-store'
 
 export const metadata: Metadata = {
-  title: 'BPN14 | Blog',
+  title: 'A∴ R∴ L∴ S∴ Cosmopolita n.° 2',
 }
 
 export default async function Page() {
