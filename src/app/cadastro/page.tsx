@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation'
 import InputPrimary from '@/components/Forms/InputPrimary'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 
+
 export default async function Home() {
   const router = useRouter()
 
@@ -18,14 +19,19 @@ export default async function Home() {
           </div>
           <div className='flex flex-col justify-center order-1 lg:order-2'>
             <div>
-              <h2 className='text-5xl font-bold text-brand-gray-700 mb-6'>Área Administrativa</h2>
+              <h2 className='text-5xl font-bold text-brand-dark'>Cadastro</h2>
+              <p className='text-md text-brand-gray-700 mb-6'>Preenche todas informações com atenção, em caso de dúvida procure um Mestre Maçom ou membros da Diretoria da Loja.</p>
 
-              <InputPrimary name='email' placeholder='E-mail' />
+              <InputPrimary name='name' placeholder='Nome' />
+              <InputPrimary name='date' type='date' placeholder='Data de nascimento' />
+              <InputPrimary name='email' placeholder='E-mail' type='email' />
+              <InputPrimary name='cim' placeholder='CIM' type='text' />
+              <InputPrimary name='endereco' placeholder='Endereço' type='text' />
+              <InputPrimary name='telefone' placeholder='Telefone' type='number' />
               <InputPrimary name='password' placeholder='Senha' type='password' />
             </div>
 
             <div className='flex-col flex'>
-              <a className='text-brand-blue font-bold cursor-pointer hover:underline text-sm'>Esqueci minha senha</a>
               <ButtonPrimary
                 full={true}
                 onClick={() => console.log('Clicou')}
@@ -35,9 +41,9 @@ export default async function Home() {
                 full={true}
                 color='text-brand-blue'
                 backgroundColor='bg-transparent'
-                onClick={() => router.push('/cadastro')}
+                onClick={() => router.push('/')}
               >
-                Criar conta</ButtonPrimary>
+                Fazer login</ButtonPrimary>
             </div>
           </div>
         </div>

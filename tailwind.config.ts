@@ -11,6 +11,7 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
+          dark: '#1A1A1A',
           green: '#00AEA4',
           greenSecondary: '#02782F',
           blue: '#052979',
