@@ -1,37 +1,40 @@
 'use client'
-import SwiperHero from '@/components/Swipers/SwiperHero'
+import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+import InputPrimary from '@/components/Forms/InputPrimary'
 import { Container } from '@/components/Partials/Container'
-import { useState } from 'react'
-import { SectionHistoria } from '@/components/Partials/SectionHistoria'
-import { SectionAtas } from '@/components/Partials/SectionAtas'
-import { SectionPresidentes } from '@/components/Partials/SectionPresidentes'
-import { SectionNoticias } from '@/components/Partials/SectionNoticias'
-// import { SectionInstagram } from '@/components/Sections/SectionInstagram'
-
 
 export default async function Home() {
-  const [anoHistoria, setAnoHistoria] = useState('1992')
   return (
-    <main>
-      <SwiperHero />
+    <main className='' style={{
+      backgroundImage: 'url(../img/bg/bg-mapa-mudi.png)',
+      backgroundSize: 'cover',
+    }}>
       <Container>
-        <div className='grid grid-cols-1 md:grid-cols-2 my-16'>
+        <div className='grid grid-cols-1 md:grid-cols-2 py-16 gap-x-12'>
           <div>
-            <span>Conheça a Cosmopolita</span>
-            <h2 className='text-5xl font-bold'>Sobre Nós</h2>
-            <p>
-              Aliquam pellentesque lorem sit amet nisl ultrices, quis commodo erat fringilla. Nullam ornare felis vel augue pretium, ac bibendum lectus pellentesque. Nam semper odio et magna molestie maximus. Aliquam vel egestas dui, eget facilisis est. Aenean bibendum eget erat nec vehicula. Proin quis porta erat, nec molestie leo. Curabitur hendrerit semper viverra.
-            </p>
+            <img className='w-full rounded-xl' src="../img/temp/login.png" alt="" />
           </div>
-          <div className='mt-4'>
-            <img className=' rounded-xl' src="../img/temp/sobre.png" alt="" />
+          <div className='flex flex-col justify-center '>
+            <div>
+              <h2 className='text-5xl font-bold text-brand-gray-700 mb-6'>Área Administrativa</h2>
+
+              <InputPrimary name='email' placeholder='E-mail' />
+              <InputPrimary name='password' placeholder='Senha' type='password' />
+            </div>
+
+            <div className='flex-col flex'>
+              {/* <a className='text-brand-blue font-bold cursor-pointer hover:underline text-sm'>Esqueci minha senha</a> */}
+
+              <ButtonPrimary
+                full={true}
+                onClick={() => console.log('Clicou')}
+              >
+                Entrar</ButtonPrimary>
+            </div>
           </div>
         </div>
-        <SectionHistoria />
       </Container>
-      <SectionAtas />
-      <SectionPresidentes />
-      <SectionNoticias />
+
     </main>
   )
 }

@@ -28,7 +28,7 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full shadow-xl backdrop-blur transition-all ${y > 0 ? 'bg-white/70' : 'bg-white'
+      className={`sticky top-0 z-50 w-full shadow-xl backdrop-blur transition-all border-b-2 border-brand-blue ${y > 0 ? 'bg-white/70' : 'bg-white'
         } `}
     >
       <TopBar />
