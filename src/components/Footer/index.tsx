@@ -3,14 +3,16 @@ import useLang from '@/hooks/useLang'
 import { Copyright } from './Copyright'
 import useNavLinks from '@/hooks/useNavLinks'
 import { Container } from '../Partials/Container'
+import useAuthenticated from '@/stores/useAuthenticated'
 
 export default function Footer() {
   const { stringData } = useLang()
   const { navLinks } = useNavLinks()
+  const { authenticated } = useAuthenticated()
 
 
   return (
-    <footer className="border-t-2 border-brand-blue">
+    <footer className={`border-t-2 border-brand-blue ${!authenticated && 'hidden'}`}>
       <Container>
         <div className="grid grid-cols-4 py-10 gap-x-4">
           <div className="flex items-center justify-center rounded-full p-1 mb-2">
