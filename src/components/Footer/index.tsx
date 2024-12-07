@@ -1,27 +1,18 @@
 'use client'
-import Link from 'next/link'
-import { Container } from '../Partials/Container'
-import { Copyright } from './Copyright'
-import Icon from '../Adapters/Icon'
 import useLang from '@/hooks/useLang'
-import { langData } from '@/location/langData'
+import { Copyright } from './Copyright'
 import useNavLinks from '@/hooks/useNavLinks'
-import useSWR from 'swr'
-import { getInfos } from '@/services/prismicData/getInfos'
+import { Container } from '../Partials/Container'
 
 export default function Footer() {
   const { stringData } = useLang()
   const { navLinks } = useNavLinks()
 
-  const { data: infos } = useSWR('getInfos', async () => {
-    const response = await getInfos()
-    return response
-  })
 
   return (
-    <footer className="border-t">
+    <footer className="border-t-2 border-brand-blue">
       <Container>
-        <div className="grid grid-cols-5 py-10 gap-x-4">
+        <div className="grid grid-cols-4 py-10 gap-x-4">
           <div className="flex items-center justify-center rounded-full p-1 mb-2">
             <img
               data-fancybox
@@ -32,7 +23,7 @@ export default function Footer() {
             />
           </div>
 
-          <div className="gap-4">
+          {/* <div className="gap-4">
             <h2 className='font-bold text-2xl mb-2'>Área Administrativa</h2>
             <button className='w-full bg-brand-blue border-brand-blue border-solid border-2 text-xl rounded-3xl text-white hover:scale-105 transition-all'>
               Login
@@ -40,7 +31,7 @@ export default function Footer() {
             <button className='w-full border-brand-blue border-solid border-2 text-xl rounded-3xl text-brand-blue hover:scale-105 transition-all mt-2'>
               Cadastro
             </button>
-          </div>
+          </div> */}
 
           <div className='hidden md:flex flex-col'>
             <h2 className='font-bold text-2xl text-black mb-2'>Sobre nós</h2>
