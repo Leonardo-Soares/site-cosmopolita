@@ -9,6 +9,7 @@ import { useCookies } from '@/stores/useCookies'
 import { Container } from '../Partials/Container'
 import { usePrismicLangs } from '@/hooks/usePrismicLangs'
 import useMenuHamburguerStore from '../../stores/useMenuHamburguerStore'
+import useAuthenticated from '@/stores/useAuthenticated'
 
 export function Header() {
   const { y } = useWindowScroll()
@@ -16,6 +17,7 @@ export function Header() {
   const { availableLangs } = usePrismicLangs()
   const { setShowMenuHamburguer } = useMenuHamburguerStore()
   const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
+  const { authenticated } = useAuthenticated()
 
   function addLangCookie(lang: string) {
     addCookie('lang', lang)
@@ -28,7 +30,9 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full shadow-xl backdrop-blur transition-all ${y > 0 ? 'bg-white/70' : 'bg-white'
+      className={`sticky top-0 z-50 w-full shadow-xl backdrop-blur transition-all border-b-2 border-brand-blue 
+        ${!authenticated && 'hidden'}
+        ${y > 0 ? 'bg-white/70' : 'bg-white'
         } `}
     >
       <TopBar />

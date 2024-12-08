@@ -43,7 +43,8 @@ export default function NavLinks() {
           </Link>
         )
       })}
-      <a href="/" rel="noreferrer" target="_blank" className='text-brand-gray-700 border-solid border-2 border-brand-gray-700 px-4 py-1 rounded-lg'>
+      <a href="/" rel="noreferrer" target="_blank"
+        className='text-brand-blue border-solid border-2 border-brand-blue hover:bg-brand-blue hover:text-white hover:scale-110 transition-all px-8 py-2 rounded-3xl'>
         Cadastro
       </a>
     </>

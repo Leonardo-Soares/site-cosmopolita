@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container } from './Container'
+import { useRouter } from 'next/navigation'
 
 export function SectionNoticias() {
   const atas_list = [
@@ -24,6 +25,8 @@ export function SectionNoticias() {
       file: '../../img/temp/news.png'
     }
   ]
+  const router = useRouter()
+
   return (
     <div className='relative bg-brand-gray-100'>
       <div className='my-16 px-12 py-12'>
@@ -33,8 +36,8 @@ export function SectionNoticias() {
               <h4 className='text-brand-gray-50'>Últimas</h4>
               <h2 className='text-black text-5xl font-bold'>Notícias</h2>
             </div>
-            <a href="http://"
-              className='hidden md:flex items-center gap-x-2 text-black font-bold text-xl hover:underline group' target="_blank" rel="noopener noreferrer">
+            <a onClick={() => router.push('/noticias')}
+              className='hidden md:flex items-center gap-x-2 text-black font-bold text-xl hover:underline group cursor-pointer' target="_blank" rel="noopener noreferrer">
               Ver todas
               <img src="../../img/icons/arrow-right-white.svg" alt="" className='p-3 rounded-full bg-brand-greenSecondary' />
             </a>
@@ -59,7 +62,6 @@ export function SectionNoticias() {
                   Donec eleifend efficitur mauris, in dapibus arcu. Orci varius natoque penatibus et magnis dis parturient montes
                 </span>
               </a>
-
             ))}
           </div>
 

@@ -1,25 +1,12 @@
 'use client'
-import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import InputPrimary from '@/components/Forms/InputPrimary'
-import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
-import useAuthenticated from '@/stores/useAuthenticated'
 import { Container } from '@/components/Partials/Container'
+import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+
 
 export default async function Home() {
   const router = useRouter()
-  const { setAuthenticated, authenticated } = useAuthenticated()
-
-  async function handleLogin() {
-    setAuthenticated(true)
-    router.push('/home')
-  }
-
-  useEffect(() => {
-    if (authenticated) {
-      router.push('/home')
-    }
-  }, [])
 
   return (
     <main className='flex-1 h-screen' style={{
@@ -30,37 +17,34 @@ export default async function Home() {
         <Container>
           <div className='grid grid-cols-1 lg:grid-cols-2 py-16 gap-x-12'>
             <div className='order-2 mt-8 lg:mt-0 lg:order-1'>
-              <img className='w-full border-solid border-brand-blue border-4 rounded-xl' src="../img/temp/foto-exemplo.jpeg" alt="" />
+              <img className='w-full rounded-xl' src="../img/bg/recupera-senha.png" alt="" />
             </div>
             <div className='flex flex-col justify-center order-1 lg:order-2'>
               <div>
-                <h2 className='text-5xl font-bold text-brand-gray-700 mb-6'>Área Administrativa</h2>
+                <h2 className='text-5xl font-bold text-brand-dark'>Recuperação de senha</h2>
+                <p className='text-md text-brand-gray-700 mb-6'>Será enviado um link para o e-mail cadastrado na qual será possível realizar a troca de senha.</p>
 
-                <InputPrimary name='email' placeholder='E-mail' />
-                <InputPrimary name='password' placeholder='Senha' type='password' />
+                <InputPrimary name='email' placeholder='E-mail' type='email' />
               </div>
 
               <div className='flex-col flex'>
-                <a onClick={() => router.push('/recuperar-senha')} className='text-brand-blue font-bold cursor-pointer hover:underline text-sm'>Esqueci minha senha</a>
                 <ButtonPrimary
                   full={true}
-                  onClick={handleLogin}
+                  onClick={() => console.log('Clicou')}
                 >
-                  Entrar</ButtonPrimary>
+                  Enviar e-mail</ButtonPrimary>
                 <ButtonPrimary
                   full={true}
                   color='text-brand-blue'
                   backgroundColor='bg-transparent'
-                  onClick={() => router.push('/cadastro')}
+                  onClick={() => router.push('/')}
                 >
-                  Criar conta</ButtonPrimary>
+                  Voltar para o login</ButtonPrimary>
               </div>
             </div>
           </div>
-
         </Container>
       </div>
-
     </main>
   )
 }

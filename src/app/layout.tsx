@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'A∴ R∴ L∴ S∴ Cosmopolita n.° 2',
-  description: 'Boilerplate Next 15 with Prismic, TypeScript and TailwindCSS',
+  description: 'A∴ R∴ L∴ S∴ Cosmopolita n.° 2',
   keywords: ['Boilerplate', 'Next', 'Prismic', 'TypeScript', 'TailwindCSS'],
   twitter: {
     card: 'summary_large_image',
@@ -24,6 +24,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+
   return (
     <html lang="pt-br">
       <head>
