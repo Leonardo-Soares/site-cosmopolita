@@ -1,27 +1,27 @@
 export default function useNavLinks() {
   const navLinks = [
     {
-      route: '/',
+      route: '/home',
       name: 'Home',
     },
     {
-      route: '/sobre-nos',
-      name: 'Sobre nós',
+      route: '/sobre',
+      name: 'Sobre',
     },
     {
-      route: '/blog',
-      name: 'Controle de Atas',
+      route: '/atas',
+      name: 'Atas',
     },
     {
-      route: '/contatos',
-      name: 'Galeria de Gestões',
+      route: '/diretoria',
+      name: 'Diretoria',
     },
     {
-      route: '/servicos',
+      route: '/noticias',
       name: 'Notícias',
     },
     {
-      route: '/servicos',
+      route: '/contato',
       name: 'Fale Conosco',
     },
     // {

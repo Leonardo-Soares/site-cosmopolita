@@ -50,7 +50,7 @@ export default function Footer() {
 
           <div className='flex flex-col'>
             <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="http://" target="_blank" rel="noopener noreferrer">
-              Controle de atas
+              Atas
             </a>
             <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="http://" target="_blank" rel="noopener noreferrer">
               Galeria de Gestões
