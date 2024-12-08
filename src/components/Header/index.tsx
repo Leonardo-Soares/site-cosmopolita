@@ -13,11 +13,11 @@ import useAuthenticated from '@/stores/useAuthenticated'
 
 export function Header() {
   const { y } = useWindowScroll()
-  const { addCookie } = useCookies()
+  const { addCookie, getCookie } = useCookies()
   const { availableLangs } = usePrismicLangs()
   const { setShowMenuHamburguer } = useMenuHamburguerStore()
   const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
-  const { authenticated } = useAuthenticated()
+  const authenticated = getCookie('logado')
 
   function addLangCookie(lang: string) {
     addCookie('lang', lang)
@@ -31,7 +31,7 @@ export function Header() {
   return (
     <header
       className={`sticky top-0 z-50 w-full shadow-xl backdrop-blur transition-all border-b-2 border-brand-blue 
-        ${!authenticated && 'hidden'}
+        ${authenticated != 'true' && 'hidden'}
         ${y > 0 ? 'bg-white/70' : 'bg-white'
         } `}
     >

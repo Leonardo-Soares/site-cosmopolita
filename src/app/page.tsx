@@ -3,22 +3,27 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import InputPrimary from '@/components/Forms/InputPrimary'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
-import useAuthenticated from '@/stores/useAuthenticated'
 import { Container } from '@/components/Partials/Container'
+import { useCookies } from '@/stores/useCookies'
 
 export default async function Home() {
   const router = useRouter()
-  const { setAuthenticated, authenticated } = useAuthenticated()
+  const { getCookie, addCookie } = useCookies()
 
   function handleLogin() {
-    setAuthenticated(true)
+    addCookie('logado', 'true')
     router.push('/home')
   }
 
-  useEffect(() => {
-    if (authenticated) {
+  async function getLogado() {
+    const logado = getCookie('logado')
+    if (logado === 'true') {
       router.push('/home')
     }
+  }
+
+  useEffect(() => {
+    getLogado()
   }, [])
 
   return (

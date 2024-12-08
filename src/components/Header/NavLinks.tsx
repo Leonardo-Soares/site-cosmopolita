@@ -2,11 +2,14 @@
 import Link from 'next/link'
 import useNavLinks from '@/hooks/useNavLinks'
 import { DropdownHover } from './DropdownHover'
+import { useCookies } from '@/stores/useCookies'
 import { useSelectedLayoutSegment } from 'next/navigation'
 
 export default function NavLinks() {
-  const segment = useSelectedLayoutSegment()
   const { navLinks } = useNavLinks()
+  const { getCookie } = useCookies()
+  const segment = useSelectedLayoutSegment()
+  const authenticated = getCookie('logado')
 
   return (
     <>
@@ -43,10 +46,12 @@ export default function NavLinks() {
           </Link>
         )
       })}
-      <a href="/" rel="noreferrer" target="_blank"
-        className='text-brand-blue border-solid border-2 border-brand-blue hover:bg-brand-blue hover:text-white hover:scale-110 transition-all px-8 py-2 rounded-3xl'>
-        Cadastro
-      </a>
+      {authenticated != 'true' &&
+        <a href="/" rel="noreferrer" target="_blank"
+          className='text-brand-blue border-solid border-2 border-brand-blue hover:bg-brand-blue hover:text-white hover:scale-110 transition-all px-8 py-2 rounded-3xl'>
+          Cadastro
+        </a>
+      }
     </>
   )
 }
