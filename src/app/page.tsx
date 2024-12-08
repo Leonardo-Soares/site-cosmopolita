@@ -10,7 +10,7 @@ export default async function Home() {
   const router = useRouter()
   const { setAuthenticated, authenticated } = useAuthenticated()
 
-  async function handleLogin() {
+  function handleLogin() {
     setAuthenticated(true)
     router.push('/home')
   }
@@ -44,7 +44,7 @@ export default async function Home() {
                 <a onClick={() => router.push('/recuperar-senha')} className='text-brand-blue font-bold cursor-pointer hover:underline text-sm'>Esqueci minha senha</a>
                 <ButtonPrimary
                   full={true}
-                  onClick={handleLogin}
+                  onClick={() => handleLogin()}
                 >
                   Entrar</ButtonPrimary>
                 <ButtonPrimary
@@ -57,10 +57,8 @@ export default async function Home() {
               </div>
             </div>
           </div>
-
         </Container>
       </div>
-
     </main>
   )
 }
