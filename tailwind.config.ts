@@ -16,6 +16,8 @@ const config: Config = {
           greenSecondary: '#02782F',
           blue: '#052979',
           blue700: '#71D0FF',
+          blue800: '#307AE9',
+          white: '#FFFFFF',
           gray: {
             50: '#707070',
             100: '#F0F0F0',
