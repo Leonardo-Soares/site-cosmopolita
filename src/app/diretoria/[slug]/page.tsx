@@ -1,5 +1,6 @@
 import { CardDiretor } from '@/components/Cards/CardDiretor'
 import { CardNoticia } from '@/components/Cards/CardNoticia'
+import HeaderPage from '@/components/Header/HeaderPage'
 import { Container } from '@/components/Partials/Container'
 import { TitleH1 } from '@/components/Texts/TitleH1'
 import { TitleH4 } from '@/components/Texts/TitleH4'
@@ -52,19 +53,8 @@ export default function Home() {
 
   return (
     <main className="">
-      <div
-        className='h-32 flex items-center'
-        style={{
-          background: 'url(../img/bg/bg-header-page.svg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
-        <Container>
-          <TitleH1 color='text-brand-dark'>Diretoria</TitleH1>
-        </Container>
-      </div>
+      <HeaderPage title='Diretoria' />
+
       <div className='flex min-h-screen flex-col items-center justify-between pt-12'>
         <Container>
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-x-4'>
