@@ -1,6 +1,8 @@
+import { CardNoticia } from '@/components/Cards/CardNoticia'
 import { Container } from '@/components/Partials/Container'
 import { TitleH1 } from '@/components/Texts/TitleH1'
 import { Metadata } from 'next'
+import { useRouter } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Notícias | Cosmopolita',
@@ -10,103 +12,84 @@ export default function Home() {
   const noticias = [
     {
       id: 1,
+      slug: 'noticia-teste',
       data: '10/10/2024',
-      file: '../../img/temp/news.png'
+      categoria: 'Categoria',
+      imagem: '../../img/temp/news.png',
+      titulo: 'Titulo da notícia',
+      sutitulo: 'Subtitulo da notícia',
     },
     {
       id: 2,
-      data: '23/09/2024',
-      file: '../../img/temp/news.png'
+      data: '10/10/2024',
+      slug: 'noticia-teste',
+      categoria: 'Categoria',
+      imagem: '../../img/temp/news.png',
+      titulo: 'Titulo da notícia',
+      sutitulo: 'Subtitulo da notícia',
     },
     {
       id: 3,
-      data: '12/08/2024',
-      file: '../../img/temp/news.png'
+      data: '10/10/2024',
+      slug: 'noticia-teste',
+      categoria: 'Categoria',
+      imagem: '../../img/temp/news.png',
+      titulo: 'Titulo da notícia',
+      sutitulo: 'Subtitulo da notícia',
     },
     {
       id: 4,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
+      data: '10/10/2024',
+      slug: 'noticia-teste',
+      categoria: 'Categoria',
+      imagem: '../../img/temp/news.png',
+      titulo: 'Titulo da notícia',
+      sutitulo: 'Subtitulo da notícia',
     },
     {
       id: 5,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
+      data: '10/10/2024',
+      slug: 'noticia-teste',
+      categoria: 'Categoria',
+      imagem: '../../img/temp/news.png',
+      titulo: 'Titulo da notícia',
+      sutitulo: 'Subtitulo da notícia',
     },
     {
       id: 6,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
+      data: '10/10/2024',
+      slug: 'noticia-teste',
+      categoria: 'Categoria',
+      imagem: '../../img/temp/news.png',
+      titulo: 'Titulo da notícia',
+      sutitulo: 'Subtitulo da notícia',
     },
     {
       id: 7,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
+      data: '10/10/2024',
+      slug: 'noticia-teste',
+      categoria: 'Categoria',
+      imagem: '../../img/temp/news.png',
+      titulo: 'Titulo da notícia',
+      sutitulo: 'Subtitulo da notícia',
     },
     {
       id: 8,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
+      data: '10/10/2024',
+      slug: 'noticia-teste',
+      categoria: 'Categoria',
+      imagem: '../../img/temp/news.png',
+      titulo: 'Titulo da notícia',
+      sutitulo: 'Subtitulo da notícia',
     },
     {
       id: 9,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
-    },
-    {
-      id: 10,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
-    },
-    {
-      id: 11,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
-    },
-    {
-      id: 12,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
-    },
-    {
-      id: 13,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
-    },
-    {
-      id: 14,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
-    },
-    {
-      id: 15,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
-    },
-    {
-      id: 16,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
-    },
-    {
-      id: 17,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
-    },
-    {
-      id: 18,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
-    },
-    {
-      id: 19,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
-    },
-    {
-      id: 20,
-      data: '15/06/2024',
-      file: '../../img/temp/news.png'
+      data: '10/10/2024',
+      slug: 'noticia-teste',
+      categoria: 'Categoria',
+      imagem: '../../img/temp/news.png',
+      titulo: 'Titulo da notícia',
+      sutitulo: 'Subtitulo da notícia',
     }
   ]
 
@@ -146,23 +129,14 @@ export default function Home() {
 
           <div className='mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6'>
             {noticias && noticias.map((item) => (
-              <a key={item.id} className='hover:scale-105 transition-all'>
-                <div className='rounded-md drop-shadow-2xl relative cursor-pointer mb-3'>
-                  <div className='bg-gradient-to-t via-black/70 from-black rounded-b-md w-full h-24 absolute flex items-end bottom-0 px-4 pb-4'>
-                    <h5 className='text-white'>{item.data}</h5>
-                  </div>
-                  <span className='bg-brand-blue text-white absolute right-2 top-2 px-4 py-1 rounded-md'>
-                    Categoria
-                  </span>
-                  <img src={item.file} alt="" className='w-full' />
-                </div>
-                <h2 className='font-bold text-xl'>
-                  Ut non justo gravida, porta nunc non, fringilla turpis. Aliquam eu est nunc. Nunc scelerisque nibh sit amet rutrum vestibulum.
-                </h2>
-                <span className='text-brand-gray-50 text-sm'>
-                  Donec eleifend efficitur mauris, in dapibus arcu. Orci varius natoque penatibus et magnis dis parturient montes
-                </span>
-              </a>
+              <CardNoticia
+                key={item.id}
+                data={item.data}
+                imagem={item.imagem}
+                titulo={item.titulo}
+                sutitulo={item.sutitulo}
+                categoria={item.categoria}
+              />
             ))}
           </div>
         </Container>

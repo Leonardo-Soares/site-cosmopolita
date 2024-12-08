@@ -1,10 +1,24 @@
 'use client'
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import InputPrimary from '@/components/Forms/InputPrimary'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+import useAuthenticated from '@/stores/useAuthenticated'
 
 export default async function Home() {
   const router = useRouter()
+  const { setAuthenticated, authenticated } = useAuthenticated()
+
+  async function handleLogin() {
+    setAuthenticated(true)
+    router.push('/home')
+  }
+
+  useEffect(() => {
+    if (authenticated) {
+      router.push('/home')
+    }
+  }, [])
 
   return (
     <main className='flex-1 h-screen' style={{
@@ -25,10 +39,10 @@ export default async function Home() {
             </div>
 
             <div className='flex-col flex'>
-              <a className='text-brand-blue font-bold cursor-pointer hover:underline text-sm'>Esqueci minha senha</a>
+              <a onClick={() => router.push('/recuperar-senha')} className='text-brand-blue font-bold cursor-pointer hover:underline text-sm'>Esqueci minha senha</a>
               <ButtonPrimary
                 full={true}
-                onClick={() => console.log('Clicou')}
+                onClick={handleLogin}
               >
                 Entrar</ButtonPrimary>
               <ButtonPrimary
