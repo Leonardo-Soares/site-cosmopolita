@@ -1,9 +1,14 @@
-import React from 'react'
-import { Container } from './Container'
-import { useRouter } from 'next/navigation'
-import { CardDiretor } from '../Cards/CardDiretor'
+import { CardDiretor } from '@/components/Cards/CardDiretor'
+import { CardNoticia } from '@/components/Cards/CardNoticia'
+import { Container } from '@/components/Partials/Container'
+import { TitleH1 } from '@/components/Texts/TitleH1'
+import { Metadata } from 'next'
 
-export function SectionPresidentes() {
+export const metadata: Metadata = {
+  title: 'Diretoria | Cosmopolita',
+}
+
+export default function Home() {
   const lista_direroria = [
     {
       id: 1,
@@ -52,46 +57,49 @@ export function SectionPresidentes() {
     }
   ]
 
-  const router = useRouter()
-
   return (
-    <div className='relative bg-white'>
-      <div className='my-16 px-6 md:px-12 py-12'>
+    <main className="">
+      <div
+        className='h-32 flex items-center'
+        style={{
+          background: 'url(../img/bg/bg-header-page.svg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
         <Container>
-          <div className='flex justify-between items-end'>
-            <div>
-              <h4 className='text-black/70'>Gestão 2025-2027</h4>
-              <h2 className='text-black text-5xl font-bold'>Membros</h2>
+          <TitleH1 color='text-brand-dark'>Diretoria</TitleH1>
+        </Container>
+      </div>
+      <div className='flex min-h-screen flex-col items-center justify-between pt-12'>
+        <Container>
+          <div className='w-full lg:flex justify-between items-center'>
+            <div className='relative lg:w-1/3 mb-4 lg:mb-0'>
+              <input type='text' placeholder='Buscar Diretores' className='w-full h-12 rounded-md p-4' />
+              <button type='button' className=''>
+                <img src='/img/icons/icon-search.svg' alt='Buscar' className='absolute right-4 top-3' />
+              </button>
             </div>
-            <a onClick={() => router.push('/diretoria')}
-              className='hidden md:flex items-center gap-x-2 text-black font-bold text-xl hover:underline group cursor-pointer' target="_blank" rel="noopener noreferrer">
-              Ver todos
-              <img src="../../img/icons/arrow-right-white.svg" alt="" className='p-3 rounded-full bg-brand-greenSecondary' />
-            </a>
           </div>
 
-          <div className='mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 md:gap-x-4 md:gap-y-6'>
-            {lista_direroria && lista_direroria.slice(0, 4).map((item) => (
+
+          <div className='mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6'>
+            {lista_direroria && lista_direroria.map((item) => (
               <CardDiretor
                 id={item.id}
                 key={item.id}
-                ano_fim={item.fim}
-                ano_inicio={item.inicio}
                 nome={item.nome}
-                descricao={item.descricao}
+                ano_inicio={item.inicio}
+                ano_fim={item.fim}
                 nome_cargo={item.cargo}
                 foto_diretor={item.imagem}
+                descricao={item.descricao}
               />
             ))}
           </div>
-
-          <button type='button' className='md:hidden border-solid border-2 border-brand-blue text-brand-blue text-xl rounded-xl mt-6 w-full h-14 hover:bg-brand-blue hover:text-white transition-all'>
-            Ver todos
-          </button>
-
         </Container>
-
       </div>
-    </div>
+    </main>
   )
 }
