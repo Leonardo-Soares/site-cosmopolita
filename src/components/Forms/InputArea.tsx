@@ -10,10 +10,11 @@ interface InputPrimaryProps {
   type?: string
   required?: boolean
   placeholder: string
+  value?: string
   onChange?: (event: FormEvent<HTMLInputElement>) => void
 }
 
-export default function InputPrimary({ name, type, title, required, placeholder, onChange }: InputPrimaryProps) {
+export default function InputArea({ name, type, title, value, required, placeholder, onChange }: InputPrimaryProps) {
   const [senhaVisivel, setSenhaVisivel] = useState(false)
 
   return (
@@ -23,14 +24,16 @@ export default function InputPrimary({ name, type, title, required, placeholder,
           {title}
         </label>
       }
-      <input
+      <textarea
         name={name}
-        type={type === 'password' && senhaVisivel ? 'text' : type}
         required={required}
-        onChange={onChange}
+        rows={5}
         placeholder={placeholder}
-        className="w-full h-12 mb-2 pl-4 pr-10 border border-brand-gray-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
-      />
+        onChange={onChange as any}
+        className="w-full h-24 mb-2 pl-4 pr-10 border border-brand-gray-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
+      >
+        {value}
+      </textarea>
       {type === 'password' &&
         <a onClick={() => setSenhaVisivel(!senhaVisivel)} className='absolute z-50 cursor-pointer top-4 right-4'>
           {senhaVisivel ?

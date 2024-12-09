@@ -1,10 +1,10 @@
 'use client'
-import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary';
-import { TitleH1 } from '@/components/Texts/TitleH1'
-import { TitleH4 } from '@/components/Texts/TitleH4';
-import { Icon } from '@iconify/react'
-import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { TitleH4 } from '@/components/Texts/TitleH4'
+import { TitleH1 } from '@/components/Texts/TitleH1'
+import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+import { FormAtas } from './FormAtas'
 
 const atas = [
   {
@@ -68,7 +68,7 @@ export function TableAtas() {
 
             <div className='mt-4'>
               <TitleH4 fontWeigth='400' color='text-brand-dark'>
-                Deseja deletar a ata: <b>{nomeAta}</b> sendo seu identificador:<b>{idAta}</b>?
+                Deseja deletar a ata: <b>{nomeAta}</b> sendo seu código:<b>{idAta}</b> ?
               </TitleH4>
               <div className='mt-4'>
                 <ButtonPrimary full backgroundColor='bg-red-800' onClick={() => setModalDelete(false)} >
@@ -83,17 +83,34 @@ export function TableAtas() {
           </div>
         </div>
       }
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <div className="relative overflow-x-auto sm:rounded-lg">
+        <FormAtas />
+        <div className='w-full lg:flex justify-between items-center mb-4'>
+          <div className='relative lg:w-1/3 mb-4 lg:mb-0 ml-2'>
+            <input type='text' placeholder='Buscar ata' className='w-full h-12 rounded-md p-4' />
+            <button type='button' className=''>
+              <img src='/img/icons/icon-search.svg' alt='Buscar' className='absolute right-4 top-3' />
+            </button>
+          </div>
+          <div className='w-48 mr-2'>
+            <ButtonPrimary full backgroundColor='bg-brand-blue' onClick={() => router.push('/atas/nova')} >
+              Nova ata
+            </ButtonPrimary>
+          </div>
+        </div>
+        <table className="w-full text-sm text-left rtl:text-right text-gray-50">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-3 py-3 text-center">
+                Código
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
                 Título
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3 text-center">
                 Data criada
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3 text-center">
                 Data aprovada
               </th>
               <th scope="col" className="px-6 py-3">
@@ -103,26 +120,29 @@ export function TableAtas() {
           </thead>
           <tbody className=''>
             {atas && atas.map((ata) => (
-              <tr key={ata.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="px-6 py-4 text-gray-700 whitespace-nowrap dark:text-white">
-                  {ata.titulo}
+              <tr key={ata.id} className="bg-white border-b hover:bg-gray-50 ">
+                <td className="px-3 py-3 text-center text-gray-700 whitespace-nowrap">
+                  {ata.id}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 text-gray-700 text-center whitespace-nowrap">
+                  {ata.titulo.slice(0, 30 - 1) + (ata.titulo.length > 30 ? "..." : "")}
+                </td>
+                <td className="px-6 py-4 text-gray-700 text-center">
                   {ata.data_criada}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 text-gray-700 text-center">
                   {ata.data_aprovada}
                 </td>
                 <td className="px-6 py-4 flex items-center gap-x-1 text-right">
-                  <a href="#" className=" text-brand-gray-700 flex items-center mx-1 dark:text-blue-500 hover:underline">
+                  <a onClick={() => router.push(`/atas/${ata.id}`)} className=" cursor-pointer text-brand-gray-700 flex items-center mx-1">
                     <img src="../img/icons/icon-eye.svg" alt="Ver" className="w-6 h-6" />
                     Ver
                   </a>
-                  <a href="#" className=" text-brand-gray-700 flex items-center mx-1 dark:text-blue-500 hover:underline">
+                  <a href="#" className=" text-brand-gray-700 flex items-center cursor-pointer mx-1">
                     <img src="../img/icons/icon-edit.svg" alt="Ver" className="w-6 h-6" />
                     Editar
                   </a>
-                  <a onClick={() => openModal(ata.titulo, ata.id)} className="cursor-pointer text-brand-gray-700 flex items-center mx-1 dark:text-blue-500 hover:underline">
+                  <a onClick={() => openModal(ata.titulo, ata.id)} className="cursor-pointer text-brand-gray-700 flex items-center mx-1">
                     <img src="../img/icons/icon-delete.svg" alt="Ver" className="w-6 h-6" />
                     Excluir
                   </a>
@@ -132,7 +152,6 @@ export function TableAtas() {
           </tbody>
         </table>
       </div>
-
     </div>
   )
 }
