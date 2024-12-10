@@ -1,4 +1,5 @@
 import { CardNoticia } from '@/components/Cards/CardNoticia'
+import HeaderPage from '@/components/Header/HeaderPage'
 import { Container } from '@/components/Partials/Container'
 import { TitleH1 } from '@/components/Texts/TitleH1'
 import { Metadata } from 'next'
@@ -11,19 +12,8 @@ export default function Home() {
 
   return (
     <main className="">
-      <div
-        className='h-32 flex items-center'
-        style={{
-          background: 'url(../img/bg/bg-header-page.svg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
-        <Container>
-          <TitleH1 color='text-brand-dark'>A∴ R∴ L∴ S∴ Cosmopolita n.° 2</TitleH1>
-        </Container>
-      </div>
+      <HeaderPage />
+
       <div className='flex min-h-screen flex-col items-center justify-between pt-12'>
         <Container>
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-x-4'>
