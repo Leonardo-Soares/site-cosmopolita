@@ -1,7 +1,5 @@
 'use client'
-import React, { FormEvent, useState } from 'react'
-import { Search } from 'lucide-react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import React, { useState } from 'react'
 
 
 interface InputPrimaryProps {
@@ -10,7 +8,7 @@ interface InputPrimaryProps {
   type?: string
   required?: boolean
   placeholder: string
-  onChange?: (event: FormEvent<HTMLInputElement>) => void
+  onChange?: any
 }
 
 export default function InputPrimary({ name, type, title, required, placeholder, onChange }: InputPrimaryProps) {
@@ -25,10 +23,10 @@ export default function InputPrimary({ name, type, title, required, placeholder,
       }
       <input
         name={name}
-        type={type === 'password' && senhaVisivel ? 'text' : type}
         required={required}
         onChange={onChange}
         placeholder={placeholder}
+        type={type === 'password' && senhaVisivel ? 'text' : type}
         className="w-full h-12 mb-2 pl-4 pr-10 border border-brand-gray-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
       />
       {type === 'password' &&
