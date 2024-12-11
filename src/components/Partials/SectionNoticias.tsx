@@ -57,7 +57,7 @@ export function SectionNoticias() {
             </a>
           </div>
 
-          <div className='mt-8 grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6'>
+          <div className='mt-8 hidden sm:grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6'>
             {noticias && noticias.slice(0, 4).map((item) => (
               <CardNoticia
                 key={item.id}
@@ -70,7 +70,20 @@ export function SectionNoticias() {
             ))}
           </div>
 
-          <button type='button' className='md:hidden border-solid border-2 border-brand-blue text-brand-blue text-xl rounded-xl mt-6 w-full h-14 hover:bg-brand-blue hover:text-white transition-all'>
+          <div className='mt-8 grid grid-cols-1 sm:hidden gap-x-4 gap-y-6'>
+            {noticias && noticias.slice(0, 1).map((item) => (
+              <CardNoticia
+                key={item.id}
+                data={item.data}
+                categoria={item.categoria}
+                titulo={item.titulo}
+                sutitulo={item.sutitulo}
+                imagem={item.file}
+              />
+            ))}
+          </div>
+
+          <button onClick={() => router.push('/noticias')} type='button' className='md:hidden border-solid border-2 border-brand-blue text-brand-blue text-xl rounded-xl mt-6 w-full h-14 hover:bg-brand-blue hover:text-white transition-all'>
             Ver todas
           </button>
         </Container>

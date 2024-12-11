@@ -65,6 +65,7 @@ export default function Home() {
 
                 <InputPrimary
                   name='email'
+                  type='email'
                   placeholder='E-mail'
                   onChange={(e: any) => setEmail(e.target.value)}
                 />

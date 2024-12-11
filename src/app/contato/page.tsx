@@ -1,8 +1,7 @@
 import { Metadata } from 'next'
-import { TitleH1 } from '@/components/Texts/TitleH1'
+import { TitleH4 } from '@/components/Texts/TitleH4'
 import HeaderPage from '@/components/Header/HeaderPage'
 import { Container } from '@/components/Partials/Container'
-import { TitleH4 } from '@/components/Texts/TitleH4'
 
 export const metadata: Metadata = {
   title: 'Contato | Cosmopolita',
