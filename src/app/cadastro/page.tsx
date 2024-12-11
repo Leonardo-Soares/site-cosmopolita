@@ -1,37 +1,70 @@
 'use client'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { api } from '@/services/axios'
+import { useRouter } from 'next/navigation'
 import InputPrimary from '@/components/Forms/InputPrimary'
 import { Container } from '@/components/Partials/Container'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
-import { api } from '@/services/axios'
-import toast from 'react-hot-toast'
 
 export default function Home() {
   const router = useRouter()
+  const [cim, setCim] = useState('')
   const [nome, setNome] = useState('')
   const [data, setData] = useState('')
   const [email, setEmail] = useState('')
-  const [cim, setCim] = useState('')
-  const [numero, setNumero] = useState('')
-  const [endereco, setEndereco] = useState('')
   const [senha, setSenha] = useState('')
+  const [telefone, setTelefone] = useState('')
+  const [endereco, setEndereco] = useState('')
   const [senhaConfirm, setSenhaConfirm] = useState('')
 
-
   async function postCadastro() {
-    const numero_limpo = numero.replace(/\D/g, '')
+    const telefone_limpo = telefone.replace(/\D/g, '')
+
+    if (!nome) {
+      toast.error('Preencha o campo nome')
+      return
+    }
+    if (!data) {
+      toast.error('Preencha o campo data de nascimento')
+      return
+    }
+    if (!email) {
+      toast.error('Preencha o campo e-mail')
+      return
+    }
+    if (!cim) {
+      toast.error('Preencha o campo CIM')
+      return
+    }
+    if (!endereco) {
+      toast.error('Preencha o campo endereço')
+      return
+    }
+    if (!telefone) {
+      toast.error('Preencha o campo telefone')
+      return
+    }
+    if (!senha) {
+      toast.error('Preencha o campo senha')
+      return
+    }
+    if (senha !== senhaConfirm) {
+      toast.error('As senhas não conferem')
+      return
+    }
 
     const formData = {
       name: nome,
       date: data,
       email: email,
       cim: cim,
-      number: numero_limpo,
+      number: telefone_limpo,
       street: endereco,
       password: senha
     }
-    console.log(formData);
+
+    console.log(formData)
 
     try {
       const response = await api.post(``, formData)
@@ -53,7 +86,7 @@ export default function Home() {
 
   const handleNumberChange = (e: any) => {
     const rawValue = e.target.value
-    setNumero(formatNumber(rawValue))
+    setTelefone(formatNumber(rawValue))
   }
 
   return (
@@ -75,7 +108,7 @@ export default function Home() {
                 <InputPrimary
                   title='Nome'
                   name='name'
-                  placeholder='Nome'
+                  placeholder='Seu nome completo'
                   onChange={(e: any) => setNome(e.target.value)}
                 />
                 <InputPrimary
@@ -96,7 +129,7 @@ export default function Home() {
                   name='cim'
                   type='number'
                   maxLength={5}
-                  placeholder='CIM'
+                  placeholder='Seu CIM (Cédula de Identificação Maçônica)'
                   title='CIM (Cédula de Identificação Maçônica)'
                   onChange={(e: any) => setCim(e.target.value)}
                 />
@@ -104,15 +137,15 @@ export default function Home() {
                   type='text'
                   name='endereco'
                   title='Endereço'
-                  placeholder='Endereço'
+                  placeholder='Seu endereço completo'
                   onChange={(e: any) => setEndereco(e.target.value)}
                 />
                 <InputPrimary
                   name='telefone'
                   maxLength={14}
-                  value={numero}
+                  value={telefone}
                   title='Telefone'
-                  placeholder='Telefone'
+                  placeholder='Telefone com DD'
                   onChange={handleNumberChange}
                 />
                 <InputPrimary
@@ -125,7 +158,7 @@ export default function Home() {
                 <InputPrimary
                   name='password'
                   type='password'
-                  placeholder='Senha'
+                  placeholder='Confirmar senha'
                   title='Confirmar senha'
                   onChange={(e: any) => setSenhaConfirm(e.target.value)}
                 />
