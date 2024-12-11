@@ -15,13 +15,13 @@ export default function Footer() {
   return (
     <footer className={`border-t-2 border-brand-blue ${authenticated != "true" && 'hidden'}`}>
       <Container>
-        <div className="grid grid-cols-4 py-10 gap-x-4">
+        <div className="grid grid-cols-1 lg:grid-cols-4 py-10 gap-x-4">
           <div className="flex items-center justify-center rounded-full p-1 mb-2">
             <img
               data-fancybox
               alt="Logo Cosmopolita"
               data-caption="Single image"
-              className="w-1/2 cursor-pointer"
+              className="w-1/3 cursor-pointer"
               src="/img/logos/logo-cosmopolita.png"
             />
           </div>
@@ -37,44 +37,41 @@ export default function Footer() {
           </div> */}
 
           <div className='hidden md:flex flex-col'>
-            <h2 className='font-bold text-2xl text-black mb-2'>Sobre nós</h2>
-            <a href="http://" target="_blank" rel="noopener noreferrer" className='text-brand-gray-50 text-sm cursor-pointer hover:underline'>
+            <h2 className='font-bold text-2xl text-brand-blue mb-2'>Sobre nós</h2>
+            <a href="/sobre" className='text-brand-gray-50 text-sm cursor-pointer hover:underline'>
               A Cosmopolista
             </a>
-            <a href="http://" target="_blank" rel="noopener noreferrer" className='text-brand-gray-50 text-sm cursor-pointer hover:underline'>
+            <a href="/home#historia" className='text-brand-gray-50 text-sm cursor-pointer hover:underline'>
               História
             </a>
-            <a href="http://" target="_blank" rel="noopener noreferrer" className='text-brand-gray-50 text-sm cursor-pointer hover:underline'>
+            <a href="/diretoria" className='text-brand-gray-50 text-sm cursor-pointer hover:underline'>
               Diretoria
             </a>
           </div>
 
-          <div className='flex flex-col'>
-            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="http://" target="_blank" rel="noopener noreferrer">
+          <div className='flex flex-col justify-center items-center lg:items-start'>
+            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="/atas" target="_blank">
               Atas
             </a>
-            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="http://" target="_blank" rel="noopener noreferrer">
-              Galeria de Gestões
+            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="/diretoria" target="_blank">
+              Diretoria
             </a>
-            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="http://" target="_blank" rel="noopener noreferrer">
+            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="/noticias" target="_blank">
               Notícias
             </a>
-            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="http://" target="_blank" rel="noopener noreferrer">
+            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="/contato" target="_blank">
               Fale Conosco
             </a>
           </div>
 
-          <div className='flex flex-col'>
-            <h2 className='font-bold text-2xl hover:text-brand-blue hover:underline'>
+          <div className='flex flex-col justify-center lg:justify-start items-center lg:items-start mt-4'>
+            <h2 className='font-bold text-2xl text-brand-blue'>
               Siga nos
             </h2>
 
             <div className='flex gap-x-2 mt-1'>
-              <a href="#" target="_blank">
+              <a href="https://www.instagram.com/cosmopolita_n2/" target="_blank">
                 <img src="/img/icons/instagram.svg" alt="" />
-              </a>
-              <a href="#" target="_blank">
-                <img src="/img/icons/facebook.svg" alt="" />
               </a>
             </div>
 
