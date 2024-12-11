@@ -28,6 +28,7 @@ export default async function Home() {
             <img className=' rounded-xl' src="../img/temp/sobre.png" alt="" />
           </div>
         </div>
+        <div id='historia' ></div>
         <SectionHistoria />
       </Container>
       <SectionAtas />

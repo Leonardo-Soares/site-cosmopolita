@@ -26,7 +26,7 @@ export function CardAta({
           <h5 className='text-white'>{data}</h5>
         </div>
       </div>
-      <img src={capa} alt="" />
+      <img src={capa} alt="" className='w-full' />
     </a>
   )
 }

@@ -56,7 +56,7 @@ export function SectionAtas() {
             </a>
           </div>
 
-          <div className='mt-8 grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6'>
+          <div className='mt-8 hidden sm:grid sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6'>
             {atas_list && atas_list.slice(0, 4).map((item) => (
               <CardAta
                 id={item.id}
@@ -67,7 +67,18 @@ export function SectionAtas() {
             ))}
           </div>
 
-          <button type='button' className='md:hidden border-solid border-2 border-brand-blue text-brand-blue text-xl rounded-xl mt-6 w-full h-14 hover:bg-brand-blue hover:text-white transition-all'>
+          <div className='mt-8 grid sm:hidden grid-cols-1 gap-x-4 gap-y-6'>
+            {atas_list && atas_list.slice(0, 1).map((item) => (
+              <CardAta
+                id={item.id}
+                data={item.data}
+                capa={item.file}
+                arquivo={item.file}
+              />
+            ))}
+          </div>
+
+          <button onClick={() => router.push('/atas')} type='button' className='md:hidden border-solid border-2 border-brand-blue text-brand-blue text-xl rounded-xl mt-6 w-full h-14 hover:bg-brand-blue hover:text-white transition-all'>
             Ver todas
           </button>
 

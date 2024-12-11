@@ -29,7 +29,7 @@ export function MenuHamburguer() {
           onClick={() => setShowMenuHamburguer(false)}
         />
         <div className="flex justify-center px-10 py-4">
-          <img src="/img/logo.png" alt="bredi" />
+          <img src="/img/logos/logo-cosmopolita.png" alt="bredi" />
         </div>
 
         <div className="py-20">
@@ -46,11 +46,8 @@ export function MenuHamburguer() {
           })}
 
           <div className="bg-white py-10">
-            <div className="flex flex-col items-center justify-center pb-5">
-              <h2>Idioma</h2>
-            </div>
             <p className="text-center text-xl text-zinc-900">
-              contato@site.com.br
+              contato@lojacosmopolita.com.br
             </p>
             <p className="flex items-center justify-center text-center text-xl text-zinc-900">
               <Icon
