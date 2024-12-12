@@ -84,7 +84,6 @@ export function TableAtas() {
         </div>
       }
       <div className="relative overflow-x-auto sm:rounded-lg">
-        <FormAtas />
         <div className='w-full lg:flex justify-between items-center mb-4'>
           <div className='relative lg:w-1/3 mb-4 lg:mb-0 ml-2'>
             <input type='text' placeholder='Buscar ata' className='w-full h-12 rounded-md p-4' />
@@ -92,8 +91,8 @@ export function TableAtas() {
               <img src='/img/icons/icon-search.svg' alt='Buscar' className='absolute right-4 top-3' />
             </button>
           </div>
-          <div className='w-48 mr-2'>
-            <ButtonPrimary full backgroundColor='bg-brand-blue' onClick={() => router.push('/atas/nova')} >
+          <div className='lg:w-48 mr-2'>
+            <ButtonPrimary full backgroundColor='bg-brand-blue' onClick={() => router.push('/dashboard/atas/cadastro')} >
               Nova ata
             </ButtonPrimary>
           </div>
@@ -134,15 +133,15 @@ export function TableAtas() {
                   {ata.data_aprovada}
                 </td>
                 <td className="px-6 py-4 flex items-center gap-x-1 text-right">
-                  <a onClick={() => router.push(`/atas/${ata.id}`)} className=" cursor-pointer text-brand-gray-700 flex items-center mx-1">
+                  <a onClick={() => router.push(`/dashboard/atas/view/${ata.id}`)} className="w-14 cursor-pointer text-brand-gray-700 flex items-center mx-1">
                     <img src="../img/icons/icon-eye.svg" alt="Ver" className="w-6 h-6" />
                     Ver
                   </a>
-                  <a href="#" className=" text-brand-gray-700 flex items-center cursor-pointer mx-1">
+                  <a onClick={() => router.push(`/dashboard/atas/edit/${ata.id}`)} className="w-14 text-brand-gray-700 flex items-center cursor-pointer mx-1">
                     <img src="../img/icons/icon-edit.svg" alt="Ver" className="w-6 h-6" />
                     Editar
                   </a>
-                  <a onClick={() => openModal(ata.titulo, ata.id)} className="cursor-pointer text-brand-gray-700 flex items-center mx-1">
+                  <a onClick={() => openModal(ata.titulo, ata.id)} className="w-14 cursor-pointer text-brand-gray-700 flex items-center mx-1">
                     <img src="../img/icons/icon-delete.svg" alt="Ver" className="w-6 h-6" />
                     Excluir
                   </a>
