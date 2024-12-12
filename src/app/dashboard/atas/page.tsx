@@ -1,16 +1,13 @@
 import { Metadata } from 'next'
-import { TitleH1 } from '@/components/Texts/TitleH1'
-import { Container } from '@/components/Partials/Container'
 import HeaderPage from '@/components/Header/HeaderPage'
-import { TableAtas } from '@/components/Partials/Dashboard/TableAtas'
+import { Container } from '@/components/Partials/Container'
+import { TableAtas } from '@/components/Partials/Dashboard/Atas/TableAtas'
 
 export const metadata: Metadata = {
   title: 'Dashaboard | Atas',
 }
 
 export default function Home() {
-
-
   return (
     <main className="">
       <HeaderPage title='Controle de Atas' />

@@ -1,13 +1,12 @@
 'use client'
-import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
-import InputArea from '@/components/Forms/InputArea'
-import InputPrimary from '@/components/Forms/InputPrimary'
-import { TitleH1 } from '@/components/Texts/TitleH1'
-import { api } from '@/services/axios'
-import { log } from 'console'
-import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { Loading } from '../Loading'
+import { api } from '@/services/axios'
+import React, { useState } from 'react'
+import InputArea from '@/components/Forms/InputArea'
+import { TitleH1 } from '@/components/Texts/TitleH1'
+import InputPrimary from '@/components/Forms/InputPrimary'
+import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+import { ButtonBack } from '../ButtonBack'
 
 export function FormAtas() {
   const [title, setTitle] = useState('')
@@ -53,12 +52,6 @@ export function FormAtas() {
 
   return (
     <div className='p-5'>
-
-      <div className='mb-4'>
-        <TitleH1 color='text-brand-dark'>
-          Cadastro de nova ata
-        </TitleH1>
-      </div>
       <InputPrimary
         name='title'
         title='Título*'
