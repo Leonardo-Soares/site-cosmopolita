@@ -4,6 +4,7 @@ import Icon from '../Adapters/Icon'
 
 type Props = {
   color?: string
+  align?: string
   fontWeigth?: string
   decoration?: string
   children: React.ReactNode
@@ -14,6 +15,7 @@ export function TitleH4({
   fontWeigth = 'font-bold',
   color = 'text-brand-white',
   decoration = 'none',
+  align = 'text-start'
 
 }: Props) {
 
@@ -21,6 +23,7 @@ export function TitleH4({
     <h1
       className={`
         ${color && color}
+        ${align && align}
         ${fontWeigth && fontWeigth}
         ${decoration && decoration}
         text-xl
