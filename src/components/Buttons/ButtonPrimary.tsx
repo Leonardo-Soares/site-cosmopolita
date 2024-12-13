@@ -37,7 +37,7 @@ export function ButtonPrimary({
         ${backgroundColor && backgroundColor}
         ${color && color}
         border-2 border-solid 
-        h-12 mt-2 hover:scale-105 transition-all font-bold rounded-2xl`}
+        h-12 mt-2 hover:scale-105 transition-all font-bold rounded-2xl px-4`}
     >
       {isLoading ?
         <Icon

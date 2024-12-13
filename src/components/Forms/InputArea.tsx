@@ -20,7 +20,7 @@ export default function InputArea({ name, type, title, value, required, placehol
   return (
     <div className='relative'>
       {title &&
-        <label htmlFor={name} className="block text-md text-dark">
+        <label htmlFor={name} className="block font-bold text-md text-dark">
           {title}
         </label>
       }
@@ -28,11 +28,11 @@ export default function InputArea({ name, type, title, value, required, placehol
         name={name}
         required={required}
         rows={5}
+        value={value}
         placeholder={placeholder}
         onChange={onChange as any}
         className="w-full h-24 mb-2 pl-4 pr-10 border border-brand-gray-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
       >
-        {value}
       </textarea>
       {type === 'password' &&
         <a onClick={() => setSenhaVisivel(!senhaVisivel)} className='absolute z-50 cursor-pointer top-4 right-4'>

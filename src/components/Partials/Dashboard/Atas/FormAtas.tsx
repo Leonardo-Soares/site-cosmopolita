@@ -2,16 +2,19 @@
 import toast from 'react-hot-toast'
 import { api } from '@/services/axios'
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import InputArea from '@/components/Forms/InputArea'
-import { TitleH1 } from '@/components/Texts/TitleH1'
+import InputFile from '@/components/Forms/InputFile'
 import InputPrimary from '@/components/Forms/InputPrimary'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
-import { ButtonBack } from '../ButtonBack'
+import { Loading } from '../../Loading'
 
 export function FormAtas() {
+  const navigate = useRouter()
   const [title, setTitle] = useState('')
   const [conteudo, setConteudo] = useState('')
   const [loading, setLoading] = useState(false)
+  const [observacao, setObservacao] = useState('')
   const [datareuniao, setDataReuniao] = useState('')
   const [dataaprovada, setDataAprovada] = useState('')
 
@@ -34,15 +37,29 @@ export function FormAtas() {
     }
 
     setLoading(true)
-    const formData = {
-      title: title,
-      conteudo: conteudo,
-      datareuniao: datareuniao,
-      dataaprovada: dataaprovada,
+
+    const formData = new FormData() as any
+
+    formData.append('titulo', title)
+    formData.append('conteudo', conteudo)
+    formData.append('data_reuniao', datareuniao)
+    formData.append('data_aprovacao', dataaprovada)
+    formData.append('data_criacao', new Date().toISOString().split('T')[0])
+    formData.append('observacao', observacao.length <= 0 ? 'sem observação' : observacao)
+    const fileInput = document.querySelector('input[type="file"]') as any
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      formData.append('arquivo', fileInput.files[0])
     }
 
     try {
       const response = await api.post('/atas', formData)
+
+      if (response.status === 201) {
+        toast.success('Ata cadastrada com sucesso')
+        navigate.back()
+      } else {
+        toast.error('Erro ao cadastrar a ata', response.data.message)
+      }
     } catch (error: any) {
       console.error('Cadastro de Ata:', error)
       toast.error('Erro ao cadastrar a ata', error.response.data.message)
@@ -51,7 +68,7 @@ export function FormAtas() {
   }
 
   return (
-    <div className='p-5'>
+    <div className='p-5 '>
       <InputPrimary
         name='title'
         title='Título*'
@@ -77,6 +94,18 @@ export function FormAtas() {
         title='Conteúdo*'
         placeholder='Digite o conteúdo da ata'
         onChange={(e: any) => setConteudo(e.target.value)}
+      />
+      <InputArea
+        name='observacao'
+        title='Observação'
+        value={observacao ?? 'Sem observação'}
+        placeholder='Informe alguma observação relevante sobre a ata'
+        onChange={(e: any) => setObservacao(e.target.value)}
+      />
+      <InputFile
+        name='file'
+        title='Anexar novo arquivo*'
+        placeholder='Selecione um arquivo'
       />
       <div className='w-72 mx-auto'>
         <ButtonPrimary isLoading={loading} full onClick={postAta}>
