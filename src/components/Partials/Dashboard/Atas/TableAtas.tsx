@@ -1,57 +1,57 @@
 'use client'
-import React, { useState } from 'react'
+import { api_v1 } from '@/services/axios'
 import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 import { TitleH4 } from '@/components/Texts/TitleH4'
 import { TitleH1 } from '@/components/Texts/TitleH1'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
-import { FormAtas } from './FormAtas'
 
-const atas = [
-  {
-    id: 1,
-    titulo: 'Ata Grau 1',
-    data_criada: '12/02/2024',
-    data_aprovada: '20/03/2024',
-    conteudo: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc.',
-    observacoes: 'Revisada pelo secretário e aprovada por unanimidade na sessão ordinária.',
-  },
-  {
-    id: 2,
-    titulo: 'Ata Grau 2',
-    data_criada: '05/04/2024',
-    data_aprovada: '15/05/2024',
-    conteudo: 'Suspendisse potenti. Integer nec nisi a velit viverra aliquet ut non lectus.',
-    observacoes: 'Incluídas sugestões da comissão de eventos antes da aprovação final.',
-  },
-  {
-    id: 3,
-    titulo: 'Ata Grau 3',
-    data_criada: '10/06/2024',
-    data_aprovada: '25/06/2024',
-    conteudo: 'Curabitur convallis turpis sit amet sapien tempor, ac pulvinar arcu facilisis.',
-    observacoes: 'Pendência de correção ortográfica solucionada antes da aprovação.',
-  },
-  {
-    id: 4,
-    titulo: 'Ata Grau 4',
-    data_criada: '15/08/2024',
-    data_aprovada: '30/08/2024',
-    conteudo: 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames.',
-    observacoes: 'Aprovação unânime registrada em sessão extraordinária.',
-  },
-];
+interface AtasProp {
+  id: number
+  ativo: number
+  titulo: string
+  arquivo: string
+  conteudo: string
+  observacao: string
+  data_criacao: string
+  data_reuniao: string
+  data_aprovacao: string
+}
 
 export function TableAtas() {
   const router = useRouter()
   const [idAta, setIdAta] = useState(0)
+  const [busca, setBusca] = useState('')
   const [nomeAta, setNomeAta] = useState('')
   const [modalDelete, setModalDelete] = useState(false)
+  const [listaAtas, setListaAtas] = useState<AtasProp[]>([])
 
   function openModal(nome: string, id: number) {
     setNomeAta(nome)
     setIdAta(id)
     setModalDelete(true)
   }
+
+  const formatDate = (isoDate: string) => {
+    const date = new Date(isoDate);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Mês começa em 0
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  async function getAtas() {
+    try {
+      const response = await api_v1.get(`/atas/show?conteudo=${busca}`)
+      setListaAtas(response.data.data)
+    } catch (error: any) {
+      console.error('GET - Lista Atas:', error)
+    }
+  }
+
+  useEffect(() => {
+    getAtas()
+  }, [])
 
   return (
     <div>
@@ -86,8 +86,8 @@ export function TableAtas() {
       <div className="relative overflow-x-auto sm:rounded-lg">
         <div className='w-full lg:flex justify-between items-center mb-4'>
           <div className='relative lg:w-1/3 mb-4 lg:mb-0 ml-2'>
-            <input type='text' placeholder='Buscar ata' className='w-full h-12 rounded-md p-4' />
-            <button type='button' className=''>
+            <input onChange={(e: any) => setBusca(e.target.value)} type='text' placeholder='Buscar ata' className='w-full h-12 rounded-md p-4' />
+            <button type='button' onClick={getAtas} className=''>
               <img src='/img/icons/icon-search.svg' alt='Buscar' className='absolute right-4 top-3' />
             </button>
           </div>
@@ -100,17 +100,20 @@ export function TableAtas() {
         <table className="w-full text-sm text-left rtl:text-right text-gray-50">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
-              <th scope="col" className="px-3 py-3 text-center">
-                Código
+              <th scope="col" className="px-1 py-3 text-center">
+                ID
               </th>
               <th scope="col" className="px-6 py-3 text-center">
                 Título
               </th>
-              <th scope="col" className="px-6 py-3 text-center">
+              <th scope="col" className="px-3 py-3 text-center">
                 Data criada
               </th>
-              <th scope="col" className="px-6 py-3 text-center">
+              <th scope="col" className="px-3 py-3 text-center">
                 Data aprovada
+              </th>
+              <th scope="col" className="px-3 py-3 text-center">
+                Data reunião
               </th>
               <th scope="col" className="px-6 py-3">
                 Ações
@@ -118,22 +121,25 @@ export function TableAtas() {
             </tr>
           </thead>
           <tbody className=''>
-            {atas && atas.map((ata) => (
+            {listaAtas && listaAtas.map((ata: AtasProp) => (
               <tr key={ata.id} className="bg-white border-b hover:bg-gray-50 ">
-                <td className="px-3 py-3 text-center text-gray-700 whitespace-nowrap">
+                <td className="px-1 py-3 text-center text-gray-700 whitespace-nowrap">
                   {ata.id}
                 </td>
                 <td className="px-6 py-4 text-gray-700 text-center whitespace-nowrap">
                   {ata.titulo.slice(0, 30 - 1) + (ata.titulo.length > 30 ? "..." : "")}
                 </td>
-                <td className="px-6 py-4 text-gray-700 text-center">
-                  {ata.data_criada}
+                <td className="px-3 py-4 text-gray-700 text-center">
+                  {formatDate(ata.data_criacao)}
                 </td>
-                <td className="px-6 py-4 text-gray-700 text-center">
-                  {ata.data_aprovada}
+                <td className="px-3 py-4 text-gray-700 text-center">
+                  {formatDate(ata.data_aprovacao)}
+                </td>
+                <td className="px-3 py-4 text-gray-700 text-center">
+                  {formatDate(ata.data_reuniao)}
                 </td>
                 <td className="px-6 py-4 flex items-center gap-x-1 text-right">
-                  <a onClick={() => router.push(`/dashboard/atas/view/${ata.id}`)} className="w-14 cursor-pointer text-brand-gray-700 flex items-center mx-1">
+                  <a onClick={() => router.push(`/dashboard/atas/view/${ata.id}`)} className="w-12 cursor-pointer text-brand-gray-700 flex items-center mx-1">
                     <img src="../img/icons/icon-eye.svg" alt="Ver" className="w-6 h-6" />
                     Ver
                   </a>
@@ -148,6 +154,13 @@ export function TableAtas() {
                 </td>
               </tr>
             ))}
+            {listaAtas.length <= 0 &&
+              <tr>
+                <td colSpan={6} className='text-center text-brand-dark py-4'>
+                  Nenhuma Ata encontrada para o termo: <b>{busca}</b>
+                </td>
+              </tr>
+            }
           </tbody>
         </table>
       </div>
