@@ -7,14 +7,11 @@ import Icon from '../Adapters/Icon'
 import { useWindowScroll } from 'react-use'
 import { useCookies } from '@/stores/useCookies'
 import { Container } from '../Partials/Container'
-import { usePrismicLangs } from '@/hooks/usePrismicLangs'
 import useMenuHamburguerStore from '../../stores/useMenuHamburguerStore'
-import useAuthenticated from '@/stores/useAuthenticated'
 
 export function Header() {
   const { y } = useWindowScroll()
   const { addCookie, getCookie } = useCookies()
-  const { availableLangs } = usePrismicLangs()
   const { setShowMenuHamburguer } = useMenuHamburguerStore()
   const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
   const authenticated = getCookie('logado')
