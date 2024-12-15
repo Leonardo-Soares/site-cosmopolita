@@ -1,43 +1,9 @@
-'use client'
-import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper'
-import { api } from '@/services/axios'
-import { useEffect, useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { getBanners } from '@/services/prismicData/getBanners'
 
-export default function SwiperHero() {
-  const banners = [
-    {
-      banner_desktop: {
-        url: "../img/temp/banner.png",
-      },
-      banner_mobile: {
-        url: "../img/temp/mobile.png",
-      },
-    },
-    {
-      banner_desktop: {
-        url: "../img/temp/banner.png",
-      },
-      banner_mobile: {
-        url: "../img/temp/mobile.png",
-      },
-    }
-  ]
-  const [listaBanner, setListaBanner] = useState([])
-
-  async function getBanner() {
-    try {
-      const response = await api.get(`/banner/show`)
-      setListaBanner(response.data.data);
-
-    } catch (error: any) {
-      console.log(error.response.data);
-    }
-  }
-
-  useEffect(() => {
-    getBanner()
-  }, [])
+export default async function SwiperHero() {
+  const listaBanner = await getBanners()
 
   return (
     <Swiper
