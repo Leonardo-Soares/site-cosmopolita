@@ -1,7 +1,8 @@
 'use client'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper'
-import { BannersDocumentData } from '../../../prismicio-types'
+import { api } from '@/services/axios'
+import { useEffect, useState } from 'react'
 
 export default function SwiperHero() {
   const banners = [
@@ -22,6 +23,22 @@ export default function SwiperHero() {
       },
     }
   ]
+  const [listaBanner, setListaBanner] = useState([])
+
+
+  async function getBanner() {
+    try {
+      const response = await api.get(`/banner/show`)
+      setListaBanner(response.data.data);
+
+    } catch (error: any) {
+      console.log(error.response.data);
+    }
+  }
+
+  useEffect(() => {
+    getBanner()
+  }, [])
 
   return (
     <Swiper
@@ -30,31 +47,34 @@ export default function SwiperHero() {
       modules={[Pagination]}
       className="aspect-[580/580] md:aspect-[3/1] h-auto"
     >
-      {banners.map((imagem, index: number) => (
-        <SwiperSlide key={index}>
-          <div className="bg-gradient-to-t from-black to-transparent absolute w-full h-full" >
-            <div className='absolute bottom-20 left-0 md:left-20'>
-              <h2 className='text-6xl font-bold text-white text-center md:text-start'>Congresso Cosmopolita</h2>
-              <p className='text-white text-2 text-center md:text-start'>Veja tudo sobre o evento e as atrações</p>
+      {listaBanner.map((imagem: any, index: number) => {
+        return (
+          <SwiperSlide key={index}>
+            <div className="bg-gradient-to-t from-black/80 to-transparent absolute w-full h-full" >
+              <div className='absolute bottom-20 left-0 md:left-20'>
+                <h2 className='text-6xl font-bold text-white text-center md:text-start'>
+                  {imagem.titulo}
+                </h2>
+                <p className='text-white text-2 text-center md:text-start'>
+                  {imagem.subtitulo}
+                </p>
+              </div>
             </div>
-          </div>
-          <picture>
-            <source
-              srcSet={imagem.banner_mobile.url as string}
-              media="(max-width: 640px)"
-            />
-            <source
-              srcSet={imagem.banner_desktop.url as string}
-              media="(min-width: 640px)"
-            />
-            <img
-              src={imagem.banner_desktop.url as string}
-              alt={'banner'}
-              className="h-full w-full object-cover"
-            />
-          </picture>
-        </SwiperSlide>
-      ))}
+            <picture>
+              <source
+                srcSet={imagem.imagem as string}
+                media="(max-width: 640px)"
+              />
+              <img
+                src={imagem.imagem as string}
+                alt={'banner'}
+                className="h-full w-full object-cover"
+              />
+            </picture>
+          </SwiperSlide>
+        )
+      })}
+
     </Swiper>
   )
 }
