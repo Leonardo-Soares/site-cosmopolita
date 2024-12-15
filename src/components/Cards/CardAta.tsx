@@ -22,7 +22,7 @@ export function CardAta({
   };
 
   return (
-    <a onClick={() => router.push(`/atas/${id}`)} className='rounded-md drop-shadow-2xl relative cursor-pointer hover:scale-105 transition-all'>
+    <a onClick={() => window.open(`/atas/${id}`, '_self')} className='rounded-md drop-shadow-2xl relative cursor-pointer hover:scale-105 transition-all'>
       <div className='bg-gradient-to-t via-black/70 from-black rounded-b-md w-full h-24 absolute flex items-end justify-around bottom-0 pb-4'>
         <div className='flex gap-x-1'>
           <img src="../../img/icons/calendar.svg" alt="Ícone de calendário branco" />

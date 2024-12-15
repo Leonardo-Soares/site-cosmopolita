@@ -2,57 +2,11 @@ import React from 'react'
 import { Container } from './Container'
 import { useRouter } from 'next/navigation'
 import { CardDiretor } from '../Cards/CardDiretor'
+import { getDiretores } from '@/services/prismicData/getDiretores'
 
-export function SectionPresidentes() {
-  const lista_direroria = [
-    {
-      id: 1,
-      nome: 'Nome do Diretor',
-      inicio: '2025',
-      fim: '2027',
-      cargo: 'Cargo do Diretor',
-      imagem: '../img/temp/presidente.png',
-      descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique.',
-    },
-    {
-      id: 2,
-      nome: 'Nome do Diretor',
-      inicio: '2025',
-      fim: '2027',
-      cargo: 'Cargo do Diretor',
-      imagem: '../img/temp/presidente.png',
-      descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique.',
-    },
-    {
-      id: 3,
-      nome: 'Nome do Diretor',
-      inicio: '2025',
-      fim: '2027',
-      cargo: 'Cargo do Diretor',
-      imagem: '../img/temp/presidente.png',
-      descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique.',
-    },
-    {
-      id: 4,
-      nome: 'Nome do Diretor',
-      inicio: '2025',
-      fim: '2027',
-      cargo: 'Cargo do Diretor',
-      imagem: '../img/temp/presidente.png',
-      descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique.',
-    },
-    {
-      id: 5,
-      nome: 'Nome do Diretor',
-      inicio: '2025',
-      fim: '2027',
-      cargo: 'Cargo do Diretor',
-      imagem: '../img/temp/presidente.png',
-      descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nunc nec tristique.',
-    }
-  ]
-
+export default async function SectionPresidentes() {
   const router = useRouter()
+  const diretores_loja = await getDiretores()
 
   return (
     <div className='relative bg-white'>
@@ -60,7 +14,7 @@ export function SectionPresidentes() {
         <Container>
           <div className='flex justify-between items-end'>
             <div>
-              <h4 className='text-black/70'>Gestão 2025-2027</h4>
+              <h4 className='text-black/70'>Membros da atual gestão</h4>
               <h2 className='text-black text-5xl font-bold'>Membros</h2>
             </div>
             <a onClick={() => router.push('/diretoria')}
@@ -71,31 +25,31 @@ export function SectionPresidentes() {
           </div>
 
           <div className='mt-8 hidden lg:grid sm:grid-cols-2 md:grid-cols-4 md:gap-x-4 md:gap-y-6'>
-            {lista_direroria && lista_direroria.slice(0, 4).map((item) => (
+            {diretores_loja && diretores_loja.slice(0, 4).map((item) => (
               <CardDiretor
                 id={item.id}
                 key={item.id}
-                ano_fim={item.fim}
-                ano_inicio={item.inicio}
+                ano_fim={item.ano_fim}
+                ano_inicio={item.ano_inicio}
                 nome={item.nome}
                 descricao={item.descricao}
                 nome_cargo={item.cargo}
-                foto_diretor={item.imagem}
+                foto_diretor={'../img/temp/presidente.png'}
               />
             ))}
           </div>
 
           <div className='mt-8 grid grid-cols-1 lg:hidden'>
-            {lista_direroria && lista_direroria.slice(0, 1).map((item) => (
+            {diretores_loja && diretores_loja.slice(0, 1).map((item) => (
               <CardDiretor
                 id={item.id}
                 key={item.id}
-                ano_fim={item.fim}
-                ano_inicio={item.inicio}
+                ano_fim={item.ano_fim}
+                ano_inicio={item.ano_inicio}
                 nome={item.nome}
                 descricao={item.descricao}
                 nome_cargo={item.cargo}
-                foto_diretor={item.imagem}
+                foto_diretor={'../img/temp/presidente.png'}
               />
             ))}
           </div>
@@ -105,7 +59,6 @@ export function SectionPresidentes() {
           </button>
 
         </Container>
-
       </div>
     </div>
   )
