@@ -25,7 +25,6 @@ export default function SwiperHero() {
   ]
   const [listaBanner, setListaBanner] = useState([])
 
-
   async function getBanner() {
     try {
       const response = await api.get(`/banner/show`)
@@ -50,13 +49,13 @@ export default function SwiperHero() {
       {listaBanner.map((imagem: any, index: number) => {
         return (
           <SwiperSlide key={index}>
-            <div className="bg-gradient-to-t from-black/80 to-transparent absolute w-full h-full" >
+            <div className="bg-gradient-to-t from-black lg:from-black/80 to-transparent absolute w-full h-full" >
               <div className='absolute bottom-20 left-0 md:left-20'>
-                <h2 className='text-6xl font-bold text-white text-center md:text-start'>
+                <h2 className='text-3xl lg:text-6xl font-bold text-white text-center md:text-start mx-2 lg:mx-0'>
                   {imagem.titulo}
                 </h2>
-                <p className='text-white text-2 text-center md:text-start'>
-                  {imagem.subtitulo}
+                <p className='text-white text-center md:text-start mx-2'>
+                  {imagem.subtitulo.slice(0, 100)}...
                 </p>
               </div>
             </div>

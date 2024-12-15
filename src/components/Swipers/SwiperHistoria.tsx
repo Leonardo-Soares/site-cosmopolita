@@ -16,6 +16,13 @@ export default function SwiperHistoria({ historico }: { historico: any }) {
       prevBtn.classList.add('custom-prev-btn');
     }
   }, []);
+  const formatDate = (isoDate: string) => {
+    const date = new Date(isoDate);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Mês começa em 0
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
 
   return (
     <Swiper
@@ -32,7 +39,7 @@ export default function SwiperHistoria({ historico }: { historico: any }) {
         <SwiperSlide key={index} >
           <div className="w-full h-auto mt-4">
             <div className="bottom-20 left-0 md:left-20">
-              <h4 className="text-brand-gray-50">{item.data}</h4>
+              <h4 className="text-brand-gray-50">{formatDate(item.data)}</h4>
               <h2 className="text-brand-gray-700 text-4xl font-bold">
                 {item.titulo}
               </h2>
