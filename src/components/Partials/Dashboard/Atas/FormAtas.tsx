@@ -104,6 +104,7 @@ export function FormAtas() {
       />
       <InputFile
         name='file'
+        type='application/pdf'
         title='Anexar novo arquivo*'
         placeholder='Selecione um arquivo'
       />
