@@ -5,8 +5,8 @@ import { Container } from '@/components/Partials/Container'
 import { useState } from 'react'
 import { SectionHistoria } from '@/components/Partials/SectionHistoria'
 import { SectionAtas } from '@/components/Partials/SectionAtas'
-import { SectionNoticias } from '@/components/Partials/SectionNoticias'
 import SectionPresidentes from '@/components/Partials/SectionPresidentes'
+import SectionNoticias from '@/components/Partials/SectionNoticias'
 // import { SectionInstagram } from '@/components/Sections/SectionInstagram'
 
 
