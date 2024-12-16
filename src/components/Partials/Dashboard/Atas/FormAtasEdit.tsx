@@ -123,6 +123,7 @@ export function FormAtasEdit({ id_ata, dados_ata }: { dados_ata: AtasProp, id_at
         </ButtonPrimary>
         <InputFile
           name='file'
+          type='application/pdf'
           title='Anexar novo arquivo*'
           placeholder='Selecione um arquivo'
         />

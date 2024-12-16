@@ -1,16 +1,20 @@
-import { CardDiretor } from '@/components/Cards/CardDiretor'
-import { CardNoticia } from '@/components/Cards/CardNoticia'
 import HeaderPage from '@/components/Header/HeaderPage'
 import { Container } from '@/components/Partials/Container'
 import { TitleH1 } from '@/components/Texts/TitleH1'
 import { TitleH4 } from '@/components/Texts/TitleH4'
+import formatDateAno from '@/hooks/useFormateDataAno'
+import { getDiretoresDetalhes } from '@/services/prismicData/getDiretores'
 import { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Diretoria | Cosmopolita',
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  return {
+    title: 'Diretoria | Cosmopolita',
+    description: 'Confira nossa atual Diretoria da Loja Cosmopolita.',
+  }
 }
 
-export default function Home() {
+export default async function Home({ params }: { params: { slug: string } }) {
+  const diretor_api = await getDiretoresDetalhes(params.slug)
   const diretor = {
     id: 1,
     nome: 'Nome do Diretor',
@@ -55,18 +59,18 @@ export default function Home() {
     <main className="">
       <HeaderPage title='Diretoria' />
 
-      <div className='flex min-h-screen flex-col items-center justify-between pt-12'>
+      <div className='flex min-h-screen flex-col items-center justify-between pt-12 pb-12 lg:pb-0'>
         <Container>
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-x-4'>
             <div className='flex flex-col  pb-4 mb-4'>
-              <TitleH1 color='text-brand-dark'>{diretor.nome}</TitleH1>
-              <TitleH4 fontWeigth='400' color='text-brand-gray-50'>{diretor.inicio} - {diretor.fim}</TitleH4>
+              <TitleH1 color='text-brand-dark'>{diretor_api.nome}</TitleH1>
+              <TitleH4 fontWeigth='400' color='text-brand-gray-50'>{formatDateAno(diretor_api.ano_inicio)} - {formatDateAno(diretor_api.ano_fim)}</TitleH4>
               <p className='text-md text-brand-gray-700 border-solid border-b-2 border-brand-gray-300 mt-4 pb-6'>
-                {diretor.descricao}
+                {diretor_api.descricao}
               </p>
               <div className='mt-6'>
                 <TitleH4 color='text-brand-dark'>Histórico</TitleH4>
-                <div className='max-h-[300px] overflow-auto'>
+                <div className='max-h-[520px] overflow-auto'>
                   {diretor.historico.map((item) => (
                     <div key={item.id} className='border border-brand-gray-400 rounded-xl p-3 mt-2 mr-2'>
                       <TitleH4 color='text-brand-dark'>
