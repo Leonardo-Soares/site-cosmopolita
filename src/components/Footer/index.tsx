@@ -38,28 +38,28 @@ export default function Footer() {
 
           <div className='hidden md:flex flex-col'>
             <h2 className='font-bold text-2xl text-brand-blue mb-2'>Sobre nós</h2>
-            <a href="/sobre" className='text-brand-gray-50 text-sm cursor-pointer hover:underline'>
-              A Cosmopolista
-            </a>
             <a href="/home#historia" className='text-brand-gray-50 text-sm cursor-pointer hover:underline'>
               História
             </a>
             <a href="/diretoria" className='text-brand-gray-50 text-sm cursor-pointer hover:underline'>
               Diretoria
             </a>
+            <a href="/politica-de-privacidade" className='text-brand-gray-50 text-sm cursor-pointer hover:underline'>
+              Política de Privacidade
+            </a>
           </div>
 
           <div className='flex flex-col justify-center items-center lg:items-start'>
-            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="/atas" target="_blank">
+            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="/atas">
               Atas
             </a>
-            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="/diretoria" target="_blank">
+            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="/diretoria">
               Diretoria
             </a>
-            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="/noticias" target="_blank">
+            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="/noticias">
               Notícias
             </a>
-            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="/contato" target="_blank">
+            <a className='font-bold text-2xl hover:text-brand-blue hover:underline' href="/contato">
               Fale Conosco
             </a>
           </div>

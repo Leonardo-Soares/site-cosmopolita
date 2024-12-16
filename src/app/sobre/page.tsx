@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { TitleH1 } from '@/components/Texts/TitleH1'
 import HeaderPage from '@/components/Header/HeaderPage'
 import { Container } from '@/components/Partials/Container'
+import { SectionHistoria } from '@/components/Partials/SectionHistoria'
 
 export const metadata: Metadata = {
   title: 'Sobre | Cosmopolita',
@@ -26,7 +27,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className='bg-[#F1F6F3] rounded-lg w-full py-10 px-9 mt-12'>
+          <div className='bg-[#F1F6F3] rounded-lg w-full py-10 px-9 my-12'>
             <div className='block lg:flex'>
               <img src="../img/sobre-cosmopolita.png" alt="" className='mx-auto w-2/3 lg:w-auto' />
 
@@ -69,6 +70,8 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          <SectionHistoria />
         </Container>
       </div>
     </main>
