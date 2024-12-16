@@ -15,8 +15,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function Home({ params }: { params: { slug: string } }) {
   const noticia = await getNoticiasDetalhes(params.slug)
-  console.log(noticia.imagem);
-
 
   return (
     <main className="">
