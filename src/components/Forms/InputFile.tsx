@@ -10,9 +10,10 @@ interface InputPrimaryProps {
   onChange?: any
   value?: string
   maxLength?: number
+  type: 'application/pdf' | 'image/png' | 'image/jpeg' | 'image/jpg' | 'image/gif'
 }
 
-export default function InputFile({ name, title, maxLength, required, placeholder, value, onChange }: InputPrimaryProps) {
+export default function InputFile({ name, title, maxLength, type, required, placeholder, value, onChange }: InputPrimaryProps) {
   const [senhaVisivel, setSenhaVisivel] = useState(false)
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -23,8 +24,8 @@ export default function InputFile({ name, title, maxLength, required, placeholde
 
     if (selectedFile) {
       // Verifica se o arquivo é um PDF
-      if (selectedFile.type !== "application/pdf") {
-        setError("O arquivo deve ser um PDF.");
+      if (selectedFile.type !== type) {
+        setError("O arquivo deve estar no formato correto.");
         setFile(null);
         return;
       }
