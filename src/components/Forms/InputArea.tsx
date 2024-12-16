@@ -11,14 +11,15 @@ interface InputPrimaryProps {
   required?: boolean
   placeholder: string
   value?: string
+  disabled?: boolean
   onChange?: (event: FormEvent<HTMLInputElement>) => void
 }
 
-export default function InputArea({ name, type, title, value, required, placeholder, onChange }: InputPrimaryProps) {
+export default function InputArea({ name, type, title, value, disabled, required, placeholder, onChange }: InputPrimaryProps) {
   const [senhaVisivel, setSenhaVisivel] = useState(false)
 
   return (
-    <div className='relative'>
+    <div className='relative w-full'>
       {title &&
         <label htmlFor={name} className="block font-bold text-md text-dark">
           {title}
@@ -29,9 +30,10 @@ export default function InputArea({ name, type, title, value, required, placehol
         required={required}
         rows={5}
         value={value}
+        disabled={disabled}
         placeholder={placeholder}
         onChange={onChange as any}
-        className="w-full h-24 mb-2 pl-4 pr-10 border border-brand-gray-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
+        className={`w-full h-24 mb-2 pl-4 pr-10 ${disabled ? 'bg-brand-gray-700/10' : ''} border border-brand-gray-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue`}
       >
       </textarea>
       {type === 'password' &&
