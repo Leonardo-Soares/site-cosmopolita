@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import formatDate from '@/hooks/useFormateData'
 
 type Props = {
+  id: any
   data: string
   imagem: string
   titulo: string
@@ -12,6 +13,7 @@ type Props = {
 }
 
 export function CardNoticia({
+  id,
   data,
   imagem,
   titulo,
@@ -23,7 +25,7 @@ export function CardNoticia({
 
 
   return (
-    <a onClick={() => router.push('/noticias/teste-item')} className='hover:scale-105 transition-all cursor-pointer'>
+    <a onClick={() => router.push(`/noticias/${id}`)} className='hover:scale-105 transition-all cursor-pointer'>
       <div className='rounded-md drop-shadow-2xl relative mb-3'>
         <div className='bg-gradient-to-t via-black/70 from-black rounded-b-md w-full h-24 absolute flex items-end bottom-0 px-4 pb-4'>
           <h5 className='text-white'>{formatDate(data)}</h5>

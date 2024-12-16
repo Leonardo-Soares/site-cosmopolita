@@ -28,6 +28,7 @@ export default async function SectionNoticiasListagem() {
       <div className='mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6'>
         {noticias && noticias.map((item) => (
           <CardNoticia
+            id={item.id}
             key={item.id}
             data={item.data}
             imagem={item.imagem}

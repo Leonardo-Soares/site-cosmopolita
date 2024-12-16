@@ -28,6 +28,7 @@ export default async function SectionNoticias() {
           <div className='mt-8 hidden sm:grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6'>
             {noticias && noticias.slice(0, 4).map((item: NoticiasProps) => (
               <CardNoticia
+                id={item.id}
                 key={item.id}
                 data={item.data}
                 titulo={item.titulo}
@@ -41,6 +42,7 @@ export default async function SectionNoticias() {
           <div className='mt-8 grid grid-cols-1 sm:hidden gap-x-4 gap-y-6'>
             {noticias && noticias.slice(0, 1).map((item: NoticiasProps) => (
               <CardNoticia
+                id={item.id}
                 key={item.id}
                 data={item.data}
                 titulo={item.titulo}
