@@ -63,8 +63,9 @@ export function DropdownHover({
   return (
     <div className="group relative inline-block cursor-pointer">
       <button
-        className={`${pathName.split('/')[1] === mainRoute.split('/')[1] ? 'font-bold' : 'font-normal'} translate-y-[6px] cursor-pointer text-white hover:opacity-70`}
+        className={`${pathName.split('/')[1] === mainRoute.split('/')[1] ? 'font-bold' : 'font-normal'} flex items-center translate-y-[6px] cursor-pointer text-brand-dark hover:opacity-70`}
       >
+        <img src='../img/icons/icon-user.svg' className='h-[20px]' />
         {title}
       </button>
       <div className="pt-3">
@@ -94,6 +95,11 @@ export function DropdownHover({
                 </span>
               </Link>
             ))}
+            <Link href={`/logout`} passHref>
+              <span className="block py-1 text-brand-red hover:underline">
+                Sair
+              </span>
+            </Link>
           </div>
         )}
       </div>
