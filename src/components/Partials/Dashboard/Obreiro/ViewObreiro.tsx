@@ -12,7 +12,7 @@ export function ViewObreiro({ obreiro }: { obreiro: DiretoresProps }) {
         name='nome'
         disabled={true}
         title={'Nome'}
-        value={diretoria.nome}
+        value={obreiro.nome}
         placeholder='Nome do diretor atual'
       />
       <InputPrimary
@@ -20,7 +20,7 @@ export function ViewObreiro({ obreiro }: { obreiro: DiretoresProps }) {
         name='nome'
         disabled={true}
         title={'Cargo'}
-        value={diretoria.cargo}
+        value={obreiro.cargo}
         placeholder='Nome do diretor atual'
       />
       <InputPrimary
@@ -28,7 +28,7 @@ export function ViewObreiro({ obreiro }: { obreiro: DiretoresProps }) {
         name='nome'
         disabled={true}
         title={'Ano de início'}
-        value={formatDateAno(diretoria.ano_inicio)}
+        value={formatDateAno(obreiro.ano_inicio)}
         placeholder='Nome do diretor atual'
       />
       <InputPrimary
@@ -36,7 +36,7 @@ export function ViewObreiro({ obreiro }: { obreiro: DiretoresProps }) {
         name='nome'
         disabled={true}
         title={'Ano de fim'}
-        value={formatDateAno(diretoria.ano_fim)}
+        value={formatDateAno(obreiro.ano_fim)}
         placeholder='Nome do diretor atual'
       />
       <div className="w-full">
@@ -44,7 +44,7 @@ export function ViewObreiro({ obreiro }: { obreiro: DiretoresProps }) {
           name='conteudo'
           title='Biografia'
           disabled={true}
-          value={diretoria.descricao}
+          value={obreiro.descricao}
           placeholder='Digite sua descrição'
         />
       </div>
