@@ -81,6 +81,7 @@ export default function Home() {
                 <a onClick={() => router.push('/recuperar-senha')} className='text-brand-blue font-bold cursor-pointer hover:underline text-sm'>Esqueci minha senha</a>
                 <ButtonPrimary
                   full={true}
+                  type='button'
                   onClick={handleLogin}
                   disabled={loading}
                 >
