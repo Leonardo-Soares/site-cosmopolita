@@ -24,20 +24,32 @@ export default function useNavLinks() {
       route: '/contato',
       name: 'Fale Conosco',
     },
-    // {
-    //   route: '/submenu',
-    //   name: 'Fale Conosco',
-    //   submenu: [
-    //     {
-    //       label: 'Submenu 1',
-    //       href: '/submenu/submenu1',
-    //     },
-    //     {
-    //       label: 'Submenu 2',
-    //       href: '/submenu/submenu2',
-    //     },
-    //   ],
-    // },
+    {
+      route: '/perfil',
+      name: 'Perfil',
+      submenu: [
+        {
+          label: 'Dashboard',
+          href: '/dashboard',
+        },
+        {
+          label: 'Notícias',
+          href: '/dashboard/noticias',
+        },
+        {
+          label: 'Atas',
+          href: '/dashboard/atas',
+        },
+        {
+          label: 'Banner',
+          href: '/dashboard/banner',
+        },
+        {
+          label: 'Diretores',
+          href: '/dashboard/diretores',
+        },
+      ],
+    },
   ]
 
   return {

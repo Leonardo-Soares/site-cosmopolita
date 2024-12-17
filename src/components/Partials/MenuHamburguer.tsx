@@ -44,6 +44,12 @@ export function MenuHamburguer() {
               </div>
             )
           })}
+          <div
+            className="border-brand-yellow cursor-pointer border-b bg-white p-5 text-2xl text-brand-red"
+            onClick={() => handleRouting('/logout')}
+          >
+            Sair
+          </div>
 
           <div className="bg-white py-10">
             <p className="text-center text-xl text-zinc-900">

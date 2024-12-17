@@ -37,12 +37,12 @@ export function TableAtas() {
   }
 
   const formatDate = (isoDate: string) => {
-    const date = new Date(isoDate);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Mês começa em 0
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
+    const date = new Date(isoDate)
+    const day = String(date.getDate()).padStart(2, '0')
+    const month = String(date.getMonth() + 1).padStart(2, '0') // Mês começa em 0
+    const year = date.getFullYear()
+    return `${day}/${month}/${year}`
+  }
 
   async function getAtas() {
     setLoading(true)
@@ -69,98 +69,91 @@ export function TableAtas() {
 
   return (
     <div>
-      {modalDelete &&
+      {modalDelete && (
         <div className='fixed top-0 left-0 flex-1 w-full h-full flex items-center justify-center bg-black/80 z-50'>
           <div className='relative bg-white rounded-xl px-12 py-8'>
             <a onClick={() => setModalDelete(false)} className='absolute rounded-full text-white w-6 h-6 bg-red-800 items-center justify-center flex top-2 right-2 cursor-pointer'>
               x
             </a>
-
             <TitleH1 color='text-red-700' alignment='text-center' fontWeigth='400'>
               Exclusão de ata
             </TitleH1>
-
             <div className='mt-4'>
               <TitleH4 fontWeigth='400' color='text-brand-dark'>
                 Deseja deletar a ata: <b>{nomeAta}</b> sendo seu código:<b>{idAta}</b> ?
               </TitleH4>
               <div className='mt-4'>
-                <ButtonPrimary full backgroundColor='bg-red-800' onClick={() => setModalDelete(false)} >
+                <ButtonPrimary full backgroundColor='bg-red-800' onClick={() => setModalDelete(false)}>
                   Confirmar
                 </ButtonPrimary>
-                <ButtonPrimary full backgroundColor='transparent' color='text-brand-blue' onClick={() => setModalDelete(false)} >
+                <ButtonPrimary full backgroundColor='transparent' color='text-brand-blue' onClick={() => setModalDelete(false)}>
                   Cancelar
                 </ButtonPrimary>
               </div>
             </div>
-
           </div>
         </div>
-      }
-      {modalView &&
+      )}
+      {modalView && (
         <div className='fixed top-0 left-0 flex-1 w-full h-full flex items-center justify-center bg-black/80 z-50'>
           <div className='relative w-[90%] bg-white border-2 border-brand-blue rounded-xl px-12 py-8'>
             <a onClick={() => setModalView(false)} className='absolute rounded-full text-white w-6 h-6 bg-red-800 items-center justify-center flex top-2 right-2 cursor-pointer'>
               x
             </a>
-
             <div className='mt-4'>
               {listaAtas && listaAtas.map((ata: AtasProp) => (
-                ata.id.toString() === idAta &&
-                <div key={ata.id}>
-                  <TitleH1 fontWeigth='400' alignment='text-center' color='text-brand-dark'>
-                    <b>{ata.titulo}</b>
-                  </TitleH1>
-                  <div className='lg:flex gap-x-2 justify-center'>
-                    <div className='bg-brand-gray-700  rounded-2xl text-center w-60 mx-auto lg:mx-0 py-1 mt-2'>
-                      <span className='text-brand-white text-sm'>Data da Reunião: {formatDate(ata.data_reuniao)}</span>
+                ata.id.toString() === idAta && (
+                  <div key={ata.id}>
+                    <TitleH1 fontWeigth='400' alignment='text-center' color='text-brand-dark'>
+                      <b>{ata.titulo}</b>
+                    </TitleH1>
+                    <div className='lg:flex gap-x-2 justify-center'>
+                      <div className='bg-brand-gray-700 rounded-2xl text-center w-60 mx-auto lg:mx-0 py-1 mt-2'>
+                        <span className='text-brand-white text-sm'>Data da Reunião: {formatDate(ata.data_reuniao)}</span>
+                      </div>
+                      <div className='bg-brand-gray-700 rounded-2xl text-center w-60 mx-auto lg:mx-0 py-1 mt-2'>
+                        <span className='text-brand-white text-sm'>Data da Aprovação: {formatDate(ata.data_aprovacao)}</span>
+                      </div>
+                      <div className='bg-brand-gray-700 rounded-2xl text-center w-60 mx-auto lg:mx-0 py-1 mt-2'>
+                        <span className='text-brand-white text-sm'>Data da Criação: {formatDate(ata.data_criacao)}</span>
+                      </div>
                     </div>
-                    <div className='bg-brand-gray-700  rounded-2xl text-center w-60 mx-auto lg:mx-0 py-1 mt-2'>
-                      <span className='text-brand-white  text-sm'>Data da Aprovação: {formatDate(ata.data_aprovacao)}</span>
+                    <div>
+                      <div className='w-72 mx-auto mt-4'>
+                        <ButtonPrimary full backgroundColor='bg-brand-blue' onClick={() => window.open(ata.arquivo, '_blank')}>
+                          Ata em arquivo PDF
+                        </ButtonPrimary>
+                      </div>
                     </div>
-                    <div className='bg-brand-gray-700  rounded-2xl text-center w-60 mx-auto lg:mx-0 py-1 mt-2'>
-                      <span className='text-brand-white  text-sm'>Data da Criação: {formatDate(ata.data_criacao)}</span>
+                    <TitleH4 color='text-brand-dark'>
+                      Conteúdo da Ata
+                    </TitleH4>
+                    <div className='border-t border-brand-dark pt-4'>
+                      <p>{ata.conteudo}</p>
                     </div>
                   </div>
-                  <div>
-                    <div className='w-72 mx-auto mt-4'>
-                      <ButtonPrimary full backgroundColor='bg-brand-blue' onClick={() => window.open(ata.arquivo, '_blank')} >
-                        Ata em arquivo PDF
-                      </ButtonPrimary>
-                    </div>
-
-                  </div>
-                  <TitleH4 color='text-brand-dark'>
-                    Conteúdo da Ata
-                  </TitleH4>
-                  <div className='border-t border-brand-dark pt-4'>
-                    <p>
-                      {ata.conteudo}
-                    </p>
-                  </div>
-                </div>
+                )
               ))}
             </div>
-
           </div>
         </div>
-      }
-      {modalEdit &&
+      )}
+      {modalEdit && (
         <div className='fixed top-0 left-0 flex-1 w-full h-full flex items-center justify-center bg-black/80 z-50'>
           <div className='relative w-[90%] bg-white border-2 border-brand-blue rounded-xl px-12 py-8'>
             <a onClick={() => setModalEdit(false)} className='absolute rounded-full text-white w-6 h-6 bg-red-800 items-center justify-center flex top-2 right-2 cursor-pointer'>
               x
             </a>
-
             <div className='mt-4'>
               {listaAtas && listaAtas.map((ata: AtasProp) => (
-                ata.id.toString() === idAta &&
-                <FormAtasEdit dados_ata={ata} id_ata={idAta} />
+                ata.id.toString() === idAta && (
+                  <FormAtasEdit dados_ata={ata} id_ata={idAta} />
+                )
               ))}
             </div>
           </div>
         </div>
-      }
+      )}
       <div className="relative sm:rounded-lg">
         <div className='w-full lg:flex justify-between items-center mb-4'>
           <div className='relative lg:w-1/3 mb-4 lg:mb-0 ml-2'>
@@ -170,13 +163,13 @@ export function TableAtas() {
             </button>
           </div>
           <div className='lg:w-48 mr-2'>
-            <ButtonPrimary full backgroundColor='bg-brand-blue' onClick={() => router.push('/dashboard/atas/cadastro')} >
+            <ButtonPrimary full backgroundColor='bg-brand-blue' onClick={() => router.push('/dashboard/atas/cadastro')}>
               Nova ata
             </ButtonPrimary>
           </div>
         </div>
         <table className="w-full text-sm text-left rtl:text-right text-gray-50">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" className="px-1 py-3 text-center">
                 ID
@@ -198,51 +191,50 @@ export function TableAtas() {
               </th>
             </tr>
           </thead>
-          {loading &&
-            <Loading />
-          }
-          <tbody className=''>
-            {listaAtas && listaAtas.map((ata: AtasProp) => (
-              <tr key={ata.id} className="bg-white border-b hover:bg-gray-50 ">
-                <td className="px-1 py-3 text-center text-gray-700 whitespace-nowrap">
-                  {ata.id}
-                </td>
-                <td className="px-6 py-4 text-gray-700 text-center whitespace-nowrap">
-                  {ata.titulo.slice(0, 30 - 1) + (ata.titulo.length > 30 ? "..." : "")}
-                </td>
-                <td className="px-3 py-4 text-gray-700 text-center">
-                  {formatDate(ata.data_criacao)}
-                </td>
-                <td className="px-3 py-4 text-gray-700 text-center">
-                  {formatDate(ata.data_aprovacao)}
-                </td>
-                <td className="px-3 py-4 text-gray-700 text-center">
-                  {formatDate(ata.data_reuniao)}
-                </td>
-                <td className="px-6 py-4 flex items-center gap-x-1 text-right">
-                  <a onClick={() => openModalViewAta(ata.id)} className="w-12 cursor-pointer text-brand-gray-700 flex items-center mx-1">
-                    <img src="../img/icons/icon-eye.svg" alt="Ver" className="w-6 h-6" />
-                    Ver
-                  </a>
-                  <a onClick={() => openModalEdit(ata.id)} className="w-14 text-brand-gray-700 flex items-center cursor-pointer mx-1">
-                    <img src="../img/icons/icon-edit.svg" alt="Ver" className="w-6 h-6" />
-                    Editar
-                  </a>
-                  {/* <a onClick={() => openModal(ata.titulo, ata.id)} className="w-14 cursor-pointer text-brand-gray-700 flex items-center mx-1">
-                    <img src="../img/icons/icon-delete.svg" alt="Ver" className="w-6 h-6" />
-                    Excluir
-                  </a> */}
-                </td>
-              </tr>
-            ))}
-            {listaAtas.length <= 0 &&
+          {loading ? (
+            <tbody>
               <tr>
-                <td colSpan={6} className='text-center text-brand-dark py-4'>
-                  Nenhuma Ata encontrada para o termo: <b>{busca}</b>
+                <td colSpan={6} className="text-center py-4">
+                  Carregando...
                 </td>
               </tr>
-            }
-          </tbody>
+            </tbody>
+          ) : (
+            <tbody>
+              {listaAtas.length > 0 ? (
+                listaAtas.map((ata) => (
+                  <tr key={ata.id} className="bg-white border-b hover:bg-gray-50">
+                    <td className="px-1 py-3 text-center text-gray-700 whitespace-nowrap">
+                      {ata.id}
+                    </td>
+                    <td className="px-6 py-4 text-gray-700 text-center whitespace-nowrap">
+                      {ata.titulo.slice(0, 30) + (ata.titulo.length > 30 ? '...' : '')}
+                    </td>
+                    <td className="px-3 py-4 text-gray-700 text-center">
+                      {formatDate(ata.data_criacao)}
+                    </td>
+                    <td className="px-3 py-4 text-gray-700 text-center">
+                      {formatDate(ata.data_aprovacao)}
+                    </td>
+                    <td className="px-3 py-4 text-gray-700 text-center">
+                      {formatDate(ata.data_reuniao)}
+                    </td>
+                    <td className="px-6 py-4 text-gray-700">
+                      <button onClick={() => openModalViewAta(ata.id)} className="text-sm text-blue-600">Ver</button>
+                      <button onClick={() => openModalEdit(ata.id)} className="text-sm text-yellow-600 ml-4">Editar</button>
+                      <button onClick={() => openModal(ata.titulo, ata.id)} className="text-sm text-red-600 ml-4">Excluir</button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={6} className="text-center text-gray-500 py-4">
+                    Nenhuma ata encontrada.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          )}
         </table>
       </div>
     </div>

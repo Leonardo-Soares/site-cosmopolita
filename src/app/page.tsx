@@ -1,11 +1,11 @@
 'use client'
+import toast from 'react-hot-toast'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import InputPrimary from '@/components/Forms/InputPrimary'
-import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
-import { Container } from '@/components/Partials/Container'
 import { useCookies } from '@/stores/useCookies'
-import toast from 'react-hot-toast'
+import InputPrimary from '@/components/Forms/InputPrimary'
+import { Container } from '@/components/Partials/Container'
+import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 
 export default function Home() {
   const router = useRouter()
@@ -81,6 +81,7 @@ export default function Home() {
                 <a onClick={() => router.push('/recuperar-senha')} className='text-brand-blue font-bold cursor-pointer hover:underline text-sm'>Esqueci minha senha</a>
                 <ButtonPrimary
                   full={true}
+                  type='button'
                   onClick={handleLogin}
                   disabled={loading}
                 >

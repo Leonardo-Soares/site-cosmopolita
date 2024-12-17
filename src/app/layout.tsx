@@ -55,7 +55,7 @@ export default function RootLayout({
         />
         <meta name="google" content="notranslate" />
       </head>
-      <body className={inter.className}>
+      <body style={{ overflowX: 'hidden' }} className={inter.className}>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <Header />
         {children}
