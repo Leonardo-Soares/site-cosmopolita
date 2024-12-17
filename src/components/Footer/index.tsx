@@ -13,7 +13,7 @@ export default function Footer() {
 
 
   return (
-    <footer className={`border-t-2 border-brand-blue ${authenticated != "true" && 'hidden'}`}>
+    <footer className={`border-t-2 border-brand-blue`}>
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-4 py-10 gap-x-4">
           <div className="flex items-center justify-center rounded-full p-1 mb-2">
