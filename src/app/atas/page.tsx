@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import HeaderPage from '@/components/Header/HeaderPage'
 import { Container } from '@/components/Partials/Container'
-import { SectionTodasAtas } from '@/components/Partials/SectionTodasAtas'
+import SectionTodasAtas from '@/components/Partials/SectionTodasAtas'
 
 export const metadata: Metadata = {
   title: 'Atas | Cosmopolita',
