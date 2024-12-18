@@ -31,7 +31,7 @@ export function CardDashboard({ item, icon }: Props) {
         </span>
         <div className="pt-5 text-base font-semibold leading-7">
           <p>
-            <p className="text-brand-bg-brand-blue transition-all duration-300 group-hover:text-white">
+            <p className="text-brand-bg-brand-blue transition-all text-2xl duration-300 group-hover:text-white">
               {item.title}
             </p>
           </p>

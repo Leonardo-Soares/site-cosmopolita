@@ -8,6 +8,10 @@ import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import { FormAtasEdit } from './FormAtasEdit'
 import AtasProp from '@/hooks/useAtasProps'
 import { Loading } from '../../Loading'
+import { getAtasDetalhes } from '@/services/prismicData/getAtasDetalhes'
+import { getAtasBusca } from '@/services/prismicData/getAtasBusca'
+import { getAtas } from '@/services/prismicData/getAtas'
+import Link from 'next/link'
 
 export function TableAtas() {
   const router = useRouter() as any
@@ -44,27 +48,29 @@ export function TableAtas() {
     return `${day}/${month}/${year}`
   }
 
-  async function getAtas() {
+  async function buscaAtas() {
     setLoading(true)
     try {
       if (busca.length > 0) {
-        const response = await api_v1.get(`/atas/show?conteudo=${busca}`)
-        setListaAtas(response.data.data)
+        const response = await getAtasBusca(busca)
+        setListaAtas(response as any)
       } else if (idAta.length > 0) {
-        const response = await api_v1.get(`/atas/show?id=${idAta}`)
-        setListaAtas(response.data.data)
+        const response = await getAtasDetalhes(idAta)
+        setListaAtas(response as any)
       } else {
-        const response = await api_v1.get('/atas/show')
-        setListaAtas(response.data.data)
+        const response = await getAtas()
+        console.log('response:', response);
+
+        setListaAtas(response as any)
       }
     } catch (error: any) {
-      console.error('GET - Lista Atas:', error)
+      console.error('GET(dashboard) - Lista Atas:', error)
     }
     setLoading(false)
   }
 
   useEffect(() => {
-    getAtas()
+    buscaAtas()
   }, [])
 
   return (
@@ -154,11 +160,12 @@ export function TableAtas() {
           </div>
         </div>
       )}
+
       <div className="relative sm:rounded-lg">
         <div className='w-full lg:flex justify-between items-center mb-4'>
           <div className='relative lg:w-1/3 mb-4 lg:mb-0 ml-2'>
             <input onChange={(e: any) => setBusca(e.target.value)} type='text' placeholder='Buscar ata' className='w-full h-12 rounded-md p-4' />
-            <button type='button' onClick={getAtas} className=''>
+            <button type='button' onClick={buscaAtas} className=''>
               <img src='/img/icons/icon-search.svg' alt='Buscar' className='absolute right-4 top-3' />
             </button>
           </div>
@@ -169,6 +176,11 @@ export function TableAtas() {
           </div>
         </div>
         <table className="w-full text-sm text-left rtl:text-right text-gray-50">
+          {loading &&
+            <div>
+              <Loading />
+            </div>
+          }
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" className="px-1 py-3 text-center">
@@ -201,7 +213,7 @@ export function TableAtas() {
             </tbody>
           ) : (
             <tbody>
-              {listaAtas.length > 0 ? (
+              {listaAtas && listaAtas?.length > 0 ? (
                 listaAtas.map((ata) => (
                   <tr key={ata.id} className="bg-white border-b hover:bg-gray-50">
                     <td className="px-1 py-3 text-center text-gray-700 whitespace-nowrap">
@@ -220,9 +232,9 @@ export function TableAtas() {
                       {formatDate(ata.data_reuniao)}
                     </td>
                     <td className="px-6 py-4 text-gray-700">
-                      <button onClick={() => openModalViewAta(ata.id)} className="text-sm text-blue-600">Ver</button>
-                      <button onClick={() => openModalEdit(ata.id)} className="text-sm text-yellow-600 ml-4">Editar</button>
-                      <button onClick={() => openModal(ata.titulo, ata.id)} className="text-sm text-red-600 ml-4">Excluir</button>
+                      <button onClick={() => openModalViewAta(ata.id)} className="hover:underline text-sm text-blue-600">Ver</button>
+                      <button onClick={() => openModalEdit(ata.id)} className="hover:underline text-sm text-yellow-600 ml-4">Editar</button>
+                      {/* <button onClick={() => openModal(ata.titulo, ata.id)} className="text-sm text-red-600 ml-4">Excluir</button> */}
                     </td>
                   </tr>
                 ))

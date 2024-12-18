@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import BannerProps from '@/hooks/useBannerProps'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import { FormBannerEdit } from './FormBannerEdit'
+import Link from 'next/link'
 
 export default function TableBanner(banners: any) {
   const navigation = useRouter()
@@ -77,14 +78,9 @@ export default function TableBanner(banners: any) {
                 </td>
 
                 <td className="px-6 py-4 flex items-center gap-x-1 text-right">
-                  <button onClick={() => navigation.push(`/dashboard/banner/${banner.id}`)} className="w-14 text-brand-gray-700 flex items-center cursor-pointer mx-1">
-                    <img src="../img/icons/icon-edit.svg" alt="Ver" className="w-6 h-6" />
+                  <Link className="hover:underline text-sm text-yellow-600 ml-4" href={`/dashboard/banner/${banner.id}`}>
                     Editar
-                  </button>
-                  {/* <a onClick={() => openModal(ata.titulo, ata.id)} className="w-14 cursor-pointer text-brand-gray-700 flex items-center mx-1">
-                        <img src="../img/icons/icon-delete.svg" alt="Ver" className="w-6 h-6" />
-                        Excluir
-                      </a> */}
+                  </Link>
                 </td>
               </tr>
             ))}

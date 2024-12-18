@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import NoticiasProps from '@/hooks/useNoticiasProps'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+import Link from 'next/link'
 
 export default function TableNoticia({ noticias }: { noticias: NoticiasProps[] }) {
   const navigation = useRouter()
@@ -84,10 +85,12 @@ export default function TableNoticia({ noticias }: { noticias: NoticiasProps[] }
                     <img src={'https://lojacosmopolita.com.br/img/temp/foto-exemplo.jpeg'} className='w-1/4 h-auto mx-auto rounded-lg' alt="" />
                   </td>
                   <td className="px-6 py-4 flex items-center gap-x-1 text-right">
-                    <button onClick={() => navigation.push(`/dashboard/noticias/${noticia.id}`)} className="w-14 text-brand-gray-700 flex items-center cursor-pointer mx-1">
-                      <img src="../img/icons/icon-edit.svg" alt="Ver" className="w-6 h-6" />
+                    <Link className="hover:underline text-sm text-blue-600" href={`/noticias/${noticia.id}`}>
+                      Ver
+                    </Link>
+                    <Link className="hover:underline text-sm text-yellow-600 ml-4" href={`/dashboard/noticias/${noticia.id}`}>
                       Editar
-                    </button>
+                    </Link>
                   </td>
                 </tr>
               ))

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import DiretoresProps from '@/hooks/useDiretoresProps'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+import Link from 'next/link'
 
 export default function TableDiretoria({ diretores }: { diretores: DiretoresProps[] }) {
   const navigation = useRouter()
@@ -76,18 +77,12 @@ export default function TableDiretoria({ diretores }: { diretores: DiretoresProp
                 </td>
 
                 <td className="px-6 py-4 flex items-center gap-x-1 text-right">
-                  <button onClick={() => navigation.push(`/dashboard/diretores/${diretor.id}`)} className="w-14 text-brand-gray-700 flex items-center cursor-pointer mx-1">
-                    <img src="../img/icons/icon-eye.svg" alt="Ver" className="w-6 h-6" />
+                  <Link className="hover:underline text-sm text-blue-600" href={`/dashboard/diretores/${diretor.id}`}>
                     Ver
-                  </button>
-                  <button onClick={() => navigation.push(`/dashboard/diretores/edit/${diretor.id}`)} className="w-14 text-brand-gray-700 flex items-center cursor-pointer mx-1">
-                    <img src="../img/icons/icon-edit.svg" alt="Ver" className="w-6 h-6" />
+                  </Link>
+                  <Link className="hover:underline text-sm text-yellow-600 ml-4" href={`/dashboard/diretores/edit/${diretor.id}`}>
                     Editar
-                  </button>
-                  {/* <a onClick={() => openModal(ata.titulo, ata.id)} className="w-14 cursor-pointer text-brand-gray-700 flex items-center mx-1">
-                        <img src="../img/icons/icon-delete.svg" alt="Ver" className="w-6 h-6" />
-                        Excluir
-                      </a> */}
+                  </Link>
                 </td>
               </tr>
             ))}
