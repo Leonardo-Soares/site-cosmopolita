@@ -3,35 +3,35 @@ import React, { useState, useEffect } from 'react'
 import { Container } from './Container'
 import { CardNoticia } from '../Cards/CardNoticia'
 import { getNoticias } from '@/services/prismicData/getNoticias'
+import { getNoticiasBusca } from '@/services/prismicData/getNoticiasBusca'
+import { Loading } from './Loading'
 
 export default function SectionNoticiasListagem() {
-  const [noticias, setNoticias] = useState<any[]>([])
+  const [loading, setLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
+  const [noticias, setNoticias] = useState<any[]>([])
   const [sortOption, setSortOption] = useState('recent')
+  const [filteredNoticias, setFilteredNoticias] = useState<any[]>([])
 
-  // Função para buscar e filtrar as notícias
-  useEffect(() => {
-    async function fetchNoticias() {
+  // Função para filtrar as notícias com base no termo de 
+  async function filtraNoticias() {
+    setLoading(true)
+    if (searchTerm.length <= 0 || searchTerm === '') {
       const fetchedNoticias = await getNoticias()
-      setNoticias(fetchedNoticias)
-    }
-    fetchNoticias()
-  }, [])
-
-  // Função para filtrar as notícias com base no termo de busca
-  const filteredNoticias = noticias.filter((item) =>
-    item.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.resumo.toLowerCase().includes(searchTerm.toLowerCase())
-  )
-
-  // Função para ordenar as notícias com base na opção selecionada
-  const sortedNoticias = filteredNoticias.sort((a, b) => {
-    if (sortOption === 'recent') {
-      return new Date(b.data) - new Date(a.data) // Mais recentes primeiro
+      setFilteredNoticias(fetchedNoticias)
+      setLoading(false)
+      return;
     } else {
-      return new Date(a.data) - new Date(b.data) // Mais antigas primeiro
+      const noticias = await getNoticiasBusca(searchTerm)
+      setFilteredNoticias(noticias as any)
+      setLoading(false)
+      return;
     }
-  })
+  }
+
+  useEffect(() => {
+    filtraNoticias()
+  }, [])
 
   return (
     <Container>
@@ -43,10 +43,10 @@ export default function SectionNoticiasListagem() {
             placeholder='Buscar notícia'
             className='w-full h-12 rounded-md p-4'
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
             aria-label='Buscar notícias'
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button type='button' className='absolute right-4 top-3'>
+          <button type='button' onClick={filtraNoticias} className='absolute right-4 top-3'>
             <img
               src='/img/icons/icon-search.svg'
               alt='Buscar'
@@ -72,19 +72,43 @@ export default function SectionNoticiasListagem() {
         </div>
       </div>
 
-      {/* Lista de notícias */}
+      {loading &&
+        <div className='mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6'>
+          <div className='relative w-full h-52'>
+            <Loading />
+          </div>
+          <div className='relative w-full h-52'>
+            <Loading />
+          </div>
+          <div className='relative w-full h-52'>
+            <Loading />
+          </div>
+        </div>
+      }
       <div className='mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6'>
-        {sortedNoticias.map((item) => (
-          <CardNoticia
-            id={item.id}
-            key={item.id}
-            data={item.data}
-            imagem={item.imagem}
-            titulo={item.titulo}
-            sutitulo={item.resumo}
-            categoria={item.categoria}
-          />
-        ))}
+        {!loading &&
+          filteredNoticias.length > 0 ? filteredNoticias.map((item) => (
+            <CardNoticia
+              id={item.id}
+              key={item.id}
+              data={item.data}
+              imagem={item.imagem}
+              titulo={item.titulo}
+              sutitulo={item.resumo}
+              categoria={item.categoria}
+            />
+          ))
+          : <div>
+            {!loading &&
+              searchTerm.length <= 0 || searchTerm === ''
+              ?
+              <p>Pesquise novamente clicando no ícone da lupa.</p>
+              :
+              <p>Nenhuma notícia encontrada para a pesquisa <b>{searchTerm}</b></p>
+
+            }
+          </div>
+        }
       </div>
     </Container>
   )
