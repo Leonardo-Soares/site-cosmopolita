@@ -22,8 +22,8 @@ export function TableBanner() {
       setLoading(false)
       return
     } else {
-      const banners = await getBannersBusca(searchTerm)
-      setListaBanners(banners.data) as any
+      const banners = await getBannersBusca(searchTerm) as any
+      setListaBanners(banners.data)
       setLoading(false)
       return
     }
