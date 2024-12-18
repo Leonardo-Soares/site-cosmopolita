@@ -2,8 +2,8 @@ import { Metadata } from "next"
 import { Container } from "@/components/Partials/Container"
 import { ButtonBack } from "@/components/Partials/Dashboard/ButtonBack"
 import HeaderPageDashboard from "@/components/Header/HeaderPageDashboard"
-import { getDiretoresDetalhes } from "@/services/prismicData/getDiretores"
 import { ViewDiretoria } from "@/components/Partials/Dashboard/Diretoria/ViewDiretoria"
+import { getDiretoresDetalhes } from "@/services/prismicData/getDiretoresDetalhes"
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   return {

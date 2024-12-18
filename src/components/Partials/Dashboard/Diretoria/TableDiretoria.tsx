@@ -1,22 +1,47 @@
 'use client'
-import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import DiretoresProps from '@/hooks/useDiretoresProps'
-import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import Link from 'next/link'
+import { Loading } from '../../Loading'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import DiretoresProps from '@/hooks/useDiretoresProps'
+import { getDiretores } from '@/services/prismicData/getDiretores'
+import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+import { getDiretoresDetalhes } from '@/services/prismicData/getDiretoresDetalhes'
 
-export default function TableDiretoria({ diretores }: { diretores: DiretoresProps[] }) {
+export default function TableDiretoria() {
   const navigation = useRouter()
-  const [bannerId, setBannerId] = useState()
-  const [modalEdit, setModalEdit] = useState(false)
+  const [search, setSearch] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [listaDiretores, setListaDiretores] = useState<DiretoresProps[]>([])
+
+  async function buscaDiretores() {
+    setLoading(true)
+    try {
+      if (search.length < 0 || search === '') {
+        const response = await getDiretores()
+        setListaDiretores(response)
+        setLoading(false)
+      } else {
+        const response = await getDiretoresDetalhes(search)
+        setListaDiretores(response as any)
+        setLoading(false)
+      }
+    } catch (error) {
+      console.error('GET(dashboard) - Lista Diretores', error)
+    }
+  }
+
+  useEffect(() => {
+    buscaDiretores()
+  }, [])
 
   return (
     <div>
       <div className="relative sm:rounded-lg">
         <div className='w-full lg:flex justify-between items-center mb-4'>
           <div className='relative lg:w-1/3 mb-4 lg:mb-0 ml-2'>
-            <input type='text' placeholder='Procurar diretores' className='w-full h-12 rounded-md p-4' />
-            <button type='button' className=''>
+            <input onChange={(e: any) => setSearch(e.target.value)} type='text' placeholder='Procurar diretores' className='w-full h-12 rounded-md p-4' />
+            <button type='button' onClick={buscaDiretores} className=''>
               <img src='/img/icons/icon-search.svg' alt='Buscar' className='absolute right-4 top-3' />
             </button>
           </div>
@@ -48,11 +73,11 @@ export default function TableDiretoria({ diretores }: { diretores: DiretoresProp
               </th>
             </tr>
           </thead>
-          {/* {loading &&
-          <Loading />
-        } */}
+          {loading &&
+            <Loading />
+          }
           <tbody className=''>
-            {diretores && diretores.map((diretor: DiretoresProps) => (
+            {listaDiretores.length > 0 ? listaDiretores.map((diretor: DiretoresProps) => (
               <tr key={diretor.id} className="bg-white border-b hover:bg-gray-50 ">
                 <td className="px-1 py-3 text-center text-gray-700 whitespace-nowrap">
                   {diretor.id}
@@ -85,7 +110,14 @@ export default function TableDiretoria({ diretores }: { diretores: DiretoresProp
                   </Link>
                 </td>
               </tr>
-            ))}
+            ))
+              : (<tr>
+                <td colSpan={5} className="px-6 py-4 text-center text-gray-700">
+                  Nenhum membro encontrado para o nome: <b>{search}</b>
+                </td>
+              </tr>
+              )
+            }
           </tbody>
         </table>
       </div>
