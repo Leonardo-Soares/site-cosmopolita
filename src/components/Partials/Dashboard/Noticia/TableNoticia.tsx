@@ -1,12 +1,11 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import NoticiasProps from '@/hooks/useNoticiasProps'
-import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import Link from 'next/link'
 import { Loading } from '../../Loading'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import NoticiasProps from '@/hooks/useNoticiasProps'
 import { getNoticias } from '@/services/prismicData/getNoticias'
-import { getNoticiasDetalhes } from '@/services/prismicData/getNoticiasDetalhes'
+import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import { getNoticiasBusca } from '@/services/prismicData/getNoticiasBusca'
 
 export default function TableNoticia() {

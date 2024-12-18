@@ -1,23 +1,45 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Loading } from '../../Loading'
 import { useRouter } from 'next/navigation'
 import BannerProps from '@/hooks/useBannerProps'
+import { getBanners } from '@/services/prismicData/getBanners'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
-import { FormBannerEdit } from './FormBannerEdit'
 import Link from 'next/link'
+import { getBannersBusca } from '@/services/prismicData/getBannersBusca'
 
-export default function TableBanner(banners: any) {
+export function TableBanner() {
   const navigation = useRouter()
-  const [bannerId, setBannerId] = useState()
-  const [modalEdit, setModalEdit] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [listaBanners, setListaBanners] = useState<BannerProps[]>([])
+
+  async function buscaBanner() {
+    setLoading(true)
+    if (searchTerm === '' && searchTerm.length <= 0) {
+      const banners = await getBanners()
+      setListaBanners(banners)
+      setLoading(false)
+      return
+    } else {
+      const banners = await getBannersBusca(searchTerm)
+      setListaBanners(banners.data) as any
+      setLoading(false)
+      return
+    }
+  }
+
+  useEffect(() => {
+    buscaBanner()
+  }, [])
 
   return (
     <div>
       <div className="relative sm:rounded-lg">
         <div className='w-full lg:flex justify-between items-center mb-4'>
           <div className='relative lg:w-1/3 mb-4 lg:mb-0 ml-2'>
-            <input type='text' placeholder='Buscar banner' className='w-full h-12 rounded-md p-4' />
-            <button type='button' className=''>
+            <input type='text' onChange={e => setSearchTerm(e.target.value)} placeholder='Buscar banner' className='w-full h-12 rounded-md p-4' />
+            <button type='button' onClick={buscaBanner} className=''>
               <img src='/img/icons/icon-search.svg' alt='Buscar' className='absolute right-4 top-3' />
             </button>
           </div>
@@ -51,11 +73,11 @@ export default function TableBanner(banners: any) {
               </th>
             </tr>
           </thead>
-          {/* {loading &&
-          <Loading />
-        } */}
           <tbody className=''>
-            {banners && banners.banners.map((banner: BannerProps) => (
+            {loading &&
+              <Loading />
+            }
+            {listaBanners.length > 0 ? listaBanners.map((banner: BannerProps) => (
               <tr key={banner.id} className="bg-white border-b hover:bg-gray-50 ">
                 <td className="px-1 py-3 text-center text-gray-700 whitespace-nowrap">
                   {banner.id}
@@ -83,7 +105,12 @@ export default function TableBanner(banners: any) {
                   </Link>
                 </td>
               </tr>
-            ))}
+            )) : <tr>
+              <td colSpan={5} className="px-6 py-4 text-center text-gray-700">
+                Nenhum banner encontrado para o termo <b>{searchTerm}</b>
+              </td>
+            </tr>
+            }
           </tbody>
         </table>
       </div>
