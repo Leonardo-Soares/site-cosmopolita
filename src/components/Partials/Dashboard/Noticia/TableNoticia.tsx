@@ -1,18 +1,38 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import NoticiasProps from '@/hooks/useNoticiasProps'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import Link from 'next/link'
+import { Loading } from '../../Loading'
+import { getNoticias } from '@/services/prismicData/getNoticias'
+import { getNoticiasDetalhes } from '@/services/prismicData/getNoticiasDetalhes'
+import { getNoticiasBusca } from '@/services/prismicData/getNoticiasBusca'
 
-export default function TableNoticia({ noticias }: { noticias: NoticiasProps[] }) {
+export default function TableNoticia() {
   const navigation = useRouter()
+  const [loading, setLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
+  const [filteredNoticias, setFilteredNoticias] = useState<NoticiasProps[]>([])
 
-  // Filtra as notícias com base no termo de busca
-  const filteredNoticias = noticias.filter(noticia =>
-    noticia.titulo.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+
+  async function buscaNoticia() {
+    setLoading(true)
+    if (searchTerm === '' && searchTerm.length <= 0) {
+      const noticias = await getNoticias()
+      setFilteredNoticias(noticias)
+      setLoading(false)
+      return;
+    } else {
+      const noticias = await getNoticiasBusca(searchTerm)
+      setFilteredNoticias(noticias.data as any)
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    buscaNoticia()
+  }, [])
 
   return (
     <div>
@@ -26,7 +46,7 @@ export default function TableNoticia({ noticias }: { noticias: NoticiasProps[] }
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)} // Atualiza o estado ao digitar
             />
-            <button type='button' className='absolute right-4 top-3'>
+            <button onClick={buscaNoticia} type='button' className='absolute right-4 top-3'>
               <img src='/img/icons/icon-search.svg' alt='Buscar' />
             </button>
           </div>
@@ -41,6 +61,11 @@ export default function TableNoticia({ noticias }: { noticias: NoticiasProps[] }
           </div>
         </div>
         <table className="w-full text-sm text-left rtl:text-right text-gray-50">
+          {loading &&
+            <div>
+              <Loading />
+            </div>
+          }
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" className="px-1 py-3 text-center">

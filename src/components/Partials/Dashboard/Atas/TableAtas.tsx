@@ -1,17 +1,15 @@
 'use client'
-import { api_v1 } from '@/services/axios'
+import { Loading } from '../../Loading'
 import { useRouter } from 'next/navigation'
+import AtasProp from '@/hooks/useAtasProps'
+import { FormAtasEdit } from './FormAtasEdit'
 import React, { useEffect, useState } from 'react'
 import { TitleH4 } from '@/components/Texts/TitleH4'
 import { TitleH1 } from '@/components/Texts/TitleH1'
-import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
-import { FormAtasEdit } from './FormAtasEdit'
-import AtasProp from '@/hooks/useAtasProps'
-import { Loading } from '../../Loading'
-import { getAtasDetalhes } from '@/services/prismicData/getAtasDetalhes'
-import { getAtasBusca } from '@/services/prismicData/getAtasBusca'
 import { getAtas } from '@/services/prismicData/getAtas'
-import Link from 'next/link'
+import { getAtasBusca } from '@/services/prismicData/getAtasBusca'
+import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+import { getAtasDetalhes } from '@/services/prismicData/getAtasDetalhes'
 
 export function TableAtas() {
   const router = useRouter() as any
@@ -59,8 +57,6 @@ export function TableAtas() {
         setListaAtas(response as any)
       } else {
         const response = await getAtas()
-        console.log('response:', response);
-
         setListaAtas(response as any)
       }
     } catch (error: any) {
@@ -240,8 +236,8 @@ export function TableAtas() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="text-center text-gray-500 py-4">
-                    Nenhuma ata encontrada.
+                  <td colSpan={5} className="px-6 py-4 text-center text-gray-700">
+                    Nenhuma notícia encontrada para o termo: <b>{busca}</b>
                   </td>
                 </tr>
               )}
