@@ -12,14 +12,14 @@ export default function Home() {
     {
       id: 1,
       icon: "atas",
-      title: "Controle de Atas",
+      title: "Atas",
       route: "/dashboard/atas",
       description: "Espaço para criar, editar e visualizar atas de reuniões."
     },
     {
       id: 2,
       icon: "banner",
-      title: "Controle de Banner",
+      title: "Banner",
       route: "/dashboard/banner",
       description: "Espaço para criar, editar e visualizar banners de destaque."
     },
@@ -27,14 +27,14 @@ export default function Home() {
       id: 3,
       icon: "news",
       route: "/dashboard/noticias",
-      title: "Controle de Notícias",
+      title: "Notícias",
       description: "Espaço para criar, editar e visualizar notícias."
     },
     {
       id: 4,
       icon: "users",
       route: "/dashboard/diretores",
-      title: "Controle de Diretores",
+      title: "Diretores",
       description: "Espaço para criar, editar e visualizar diretores."
     },
     {

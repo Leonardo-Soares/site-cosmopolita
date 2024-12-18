@@ -3,7 +3,7 @@ import { Container } from '@/components/Partials/Container'
 import { TitleH1 } from '@/components/Texts/TitleH1'
 import { TitleH4 } from '@/components/Texts/TitleH4'
 import formatDateAno from '@/hooks/useFormateDataAno'
-import { getDiretoresDetalhes } from '@/services/prismicData/getDiretores'
+import { getDiretoresDetalhes } from '@/services/prismicData/getDiretoresDetalhes'
 import { Metadata } from 'next'
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
