@@ -6,12 +6,15 @@ import { useRouter } from 'next/navigation'
 import InputPrimary from '@/components/Forms/InputPrimary'
 import { Container } from '@/components/Partials/Container'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+import { log } from 'console'
 
 export default function Home() {
   const router = useRouter()
   const [cim, setCim] = useState('')
+  const [cpf, setCpf] = useState('')
   const [nome, setNome] = useState('')
   const [data, setData] = useState('')
+  const [grau, setGrau] = useState('')
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const [telefone, setTelefone] = useState('')
@@ -33,8 +36,20 @@ export default function Home() {
       toast.error('Preencha o campo e-mail')
       return
     }
+    if (!email.includes('@')) {
+      toast.error('Informe um e-mail existente')
+      return
+    }
+    if (!email.includes('.')) {
+      toast.error('Informe um e-mail existente')
+      return
+    }
     if (!cim) {
       toast.error('Preencha o campo CIM')
+      return
+    }
+    if (!grau) {
+      toast.error('Selecione seu grau atual')
       return
     }
     if (!endereco) {
@@ -45,8 +60,20 @@ export default function Home() {
       toast.error('Preencha o campo telefone')
       return
     }
+    if (!cpf) {
+      toast.error('Preencha o campo CPF')
+      return
+    }
+    if (cpf.length < 14) {
+      toast.error('CPF inválido')
+      return
+    }
     if (!senha) {
       toast.error('Preencha o campo senha')
+      return
+    }
+    if (senha.length < 8) {
+      toast.error('A senha deve ter no mínimo 8 caracteres')
       return
     }
     if (senha !== senhaConfirm) {
@@ -55,38 +82,63 @@ export default function Home() {
     }
 
     const formData = {
-      name: nome,
-      date: data,
-      email: email,
       cim: cim,
-      number: telefone_limpo,
+      grau: grau,
+      nome: nome,
+      data: data,
+      email: email,
+      password: senha,
       street: endereco,
-      password: senha
+      status: 'aguardando',
+      honoravel: 'obreiro',
+      telefone: telefone_limpo,
+      cpf: cpf.replace(/\D/g, ''),
     }
 
     console.log(formData)
 
     try {
-      const response = await api.post(``, formData)
+      const response = await api.post(`/usuario`, formData)
+      console.log(response.data);
+      toast.success('Cadastro realizado com sucesso')
+
     } catch (error: any) {
+      toast.error('Erro ao realizar cadastro, tente novamente mais tarde')
+      console.log(error.response);
 
     }
   }
 
   const formatNumber = (value: any) => {
-    // Remove todos os caracteres que não são números
     const cleaned = value.replace(/\D/g, '')
 
-    // Formata o CPF no padrão XXX.XXX.XXX-XX
     const formatted = cleaned
       .replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3')
 
     return formatted
   }
 
+  const formatCPF = (value: any) => {
+    // Remove qualquer caractere que não seja número
+    const cleaned = value.replace(/\D/g, '');
+
+    // Aplica a máscara de CPF
+    const formatted = cleaned
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{2})$/, '$1-$2');
+
+    return formatted;
+  };
+
   const handleNumberChange = (e: any) => {
     const rawValue = e.target.value
     setTelefone(formatNumber(rawValue))
+  }
+
+  const handleCPFChange = (e: any) => {
+    const rawValue = e.target.value
+    setCpf(formatCPF(rawValue))
   }
 
   return (
@@ -96,9 +148,13 @@ export default function Home() {
     }}>
       <div className='max-w-[1080px] h-full mx-auto flex justify-center'>
         <Container>
-          <div className='grid grid-cols-1 lg:grid-cols-2 py-16 gap-x-12 items-center'>
-            <div className='order-2 mt-8 lg:mt-0 lg:order-1 hidden lg:flex'>
-              <img className='w-full border-solid border-brand-blue border-4 rounded-xl' src="../img/temp/foto-exemplo.jpeg" alt="" />
+          <div className='grid grid-cols-1 lg:grid-cols-2 py-16 gap-x-12'>
+            <div className=' order-2 mt-8 lg:mt-0 lg:order-1 hidden lg:flex'>
+              <img
+                src="../img/temp/foto-exemplo.jpeg"
+                alt="Foto de obreiros da Loja Cosmopolita"
+                className='w-full sticky top-44 h-[400px] border-solid border-brand-blue border-4 rounded-xl'
+              />
             </div>
             <div className='flex flex-col justify-center order-1 lg:order-2'>
               <div>
@@ -133,6 +189,22 @@ export default function Home() {
                   title='CIM (Cédula de Identificação Maçônica)'
                   onChange={(e: any) => setCim(e.target.value)}
                 />
+                <div className='mb-3'>
+                  <p className='font-bold text-brand-dark text-center lg:text-start'>
+                    Selecione seu grau
+                  </p>
+                  <select
+                    className=' w-full h-12 rounded-xl'
+                    value={grau}
+                    onChange={(e) => setGrau(e.target.value)}
+                    aria-label='Selecione seu grau'
+                  >
+                    <option value=''>Selecione seu grau</option>
+                    <option value='grau-1'>Grau 1 - Aprendiz</option>
+                    <option value='grau-2'>Grau 2 - Companheiro</option>
+                    <option value='grau-3'>Grau 3 - Mestre</option>
+                  </select>
+                </div>
                 <InputPrimary
                   type='text'
                   name='endereco'
@@ -147,6 +219,14 @@ export default function Home() {
                   title='Telefone'
                   placeholder='Telefone com DD'
                   onChange={handleNumberChange}
+                />
+                <InputPrimary
+                  name='cpf'
+                  maxLength={14}
+                  value={cpf}
+                  title='CPF'
+                  placeholder='Informe seu CPF'
+                  onChange={handleCPFChange}
                 />
                 <InputPrimary
                   title='Senha'
