@@ -95,17 +95,29 @@ export default function Home() {
       cpf: cpf.replace(/\D/g, ''),
     }
 
-    console.log(formData)
-
     try {
       const response = await api.post(`/usuario`, formData)
-      console.log(response.data);
-      toast.success('Cadastro realizado com sucesso')
+      if (response.status) {
+
+        toast.success('Cadastro realizado com sucesso')
+        setNome('')
+        setData('')
+        setEmail('')
+        setCim('')
+        setGrau('')
+        setEndereco('')
+        setTelefone('')
+        setCpf('')
+        setSenha('')
+        setSenhaConfirm('')
+        setTimeout(() => {
+          router.push('/cadastro-sucesso')
+        }, 2000)
+      }
 
     } catch (error: any) {
       toast.error('Erro ao realizar cadastro, tente novamente mais tarde')
-      console.log(error.response);
-
+      console.log(error.response)
     }
   }
 
@@ -159,17 +171,21 @@ export default function Home() {
             <div className='flex flex-col justify-center order-1 lg:order-2'>
               <div>
                 <h2 className='text-5xl font-bold text-brand-dark'>Cadastro</h2>
-                <p className='text-md text-brand-gray-700 mb-6'>Preenche todas informações com atenção, em caso de dúvida procure um Mestre Maçom ou membros da Diretoria da Loja.</p>
+                <p className='text-md text-brand-gray-700 mb-6'>
+                  Preencha todas as informações com atenção. Em caso de dúvidas, procure um irmão Mestre Maçom ou a Diretoria da Loja Cosmopolita.
+                </p>
 
                 <InputPrimary
                   title='Nome'
                   name='name'
+                  value={nome}
                   placeholder='Seu nome completo'
                   onChange={(e: any) => setNome(e.target.value)}
                 />
                 <InputPrimary
                   name='date'
                   type='date'
+                  value={data}
                   title='Data de nascimento'
                   placeholder='Data de nascimento'
                   onChange={(e: any) => setData(e.target.value)}
@@ -177,17 +193,19 @@ export default function Home() {
                 <InputPrimary
                   name='email'
                   type='email'
+                  value={email}
                   title='E-mail'
                   placeholder='E-mail'
                   onChange={(e: any) => setEmail(e.target.value)}
                 />
                 <InputPrimary
                   name='cim'
+                  value={cim}
                   type='number'
                   maxLength={5}
-                  placeholder='Seu CIM (Cédula de Identificação Maçônica)'
-                  title='CIM (Cédula de Identificação Maçônica)'
                   onChange={(e: any) => setCim(e.target.value)}
+                  title='CIM (Cédula de Identificação Maçônica)'
+                  placeholder='Seu CIM (Cédula de Identificação Maçônica)'
                 />
                 <div className='mb-3'>
                   <p className='font-bold text-brand-dark text-center lg:text-start'>
@@ -209,6 +227,7 @@ export default function Home() {
                   type='text'
                   name='endereco'
                   title='Endereço'
+                  value={endereco}
                   placeholder='Seu endereço completo'
                   onChange={(e: any) => setEndereco(e.target.value)}
                 />
@@ -222,14 +241,15 @@ export default function Home() {
                 />
                 <InputPrimary
                   name='cpf'
-                  maxLength={14}
                   value={cpf}
                   title='CPF'
-                  placeholder='Informe seu CPF'
+                  maxLength={14}
                   onChange={handleCPFChange}
+                  placeholder='Informe seu CPF'
                 />
                 <InputPrimary
                   title='Senha'
+                  value={senha}
                   name='password'
                   type='password'
                   placeholder='Senha'
@@ -238,8 +258,9 @@ export default function Home() {
                 <InputPrimary
                   name='password'
                   type='password'
-                  placeholder='Confirmar senha'
+                  value={senhaConfirm}
                   title='Confirmar senha'
+                  placeholder='Confirmar senha'
                   onChange={(e: any) => setSenhaConfirm(e.target.value)}
                 />
               </div>
