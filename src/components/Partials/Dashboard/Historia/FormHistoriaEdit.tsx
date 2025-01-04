@@ -9,25 +9,30 @@ import InputPrimary from '@/components/Forms/InputPrimary'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import { TitleH4 } from '@/components/Texts/TitleH4'
 import { useRouter } from 'next/navigation'
+import HistoriaProps from '@/hooks/useHistoriaProps'
+import InputArea from '@/components/Forms/InputArea'
+import formatDate from '@/hooks/useFormateData'
+import SelectPrimary from '@/components/Forms/SelectPrimary'
 
-export function FormHistoriaEdit({ dados_banner }: { dados_banner: BannerProps }) {
+export function FormHistoriaEdit({ dados_historia }: { dados_historia: HistoriaProps }) {
   const [loading, setLoading] = useState(false)
   const navigation = useRouter()
-  const [link, setLink] = useState(dados_banner.link)
-  const [titulo, setTitulo] = useState(dados_banner.titulo)
-  const [subtitulo, setSubtitulo] = useState(dados_banner.subtitulo)
+  const [data, setData] = useState(dados_historia.data)
+  const [titulo, setTitulo] = useState(dados_historia.titulo)
+  const [status, setStatus] = useState(dados_historia.status)
+  const [descricao, setDescricao] = useState(dados_historia.descricao)
 
   async function atualizaBanner() {
     if (!titulo) {
-      toast.error('O campo Título da ata é obrigatório')
+      toast.error('O campo Título é obrigatório')
       return;
     }
-    if (!subtitulo) {
-      toast.error('O campo Subtítulo da ata é obrigatório')
+    if (!data) {
+      toast.error('O campo Data é obrigatório')
       return;
     }
-    if (!link) {
-      toast.error('O campo Link da ata é obrigatório')
+    if (!descricao) {
+      toast.error('O campo Descrição é obrigatório')
       return;
     }
 
@@ -36,33 +41,29 @@ export function FormHistoriaEdit({ dados_banner }: { dados_banner: BannerProps }
     const formData = new FormData() as any
 
     formData.append('titulo', titulo)
-    formData.append('subitulo', subtitulo)
-    formData.append('link', link)
-    const fileInput = document.querySelector('input[type="file"]') as any
-    if (fileInput && fileInput.files && fileInput.files.length > 0) {
-      formData.append('imagem', fileInput.files[0])
-    }
+    formData.append('descricao', descricao)
+    formData.append('data', data)
+    formData.append('status', status)
 
     // Para debugar o FormData
     // for (const [key, value] of formData.entries()) {
     //   console.log(`${key}:`, value);
     // }
 
-
     try {
-      const response = await api.post(`/banner/${dados_banner.id}`, formData)
+      const response = await api.post(`/historia/${dados_historia.id}`, formData)
 
       if (response.status === 201) {
-        toast.success('Banner atualizada com sucesso')
+        toast.success('História atualizada com sucesso')
         navigation.back()
         return;
       } else {
-        toast.error('Erro ao atualizar banner')
+        toast.error('Erro ao atualizar história')
       }
 
     } catch (error: any) {
-      console.error('Cadastro de Ata:', error)
-      toast.error('Erro ao cadastrar a ata', error.response.data.message)
+      console.error('Cadastro de História:', error)
+      toast.error('Erro ao cadastrar História', error.response.data.message)
     }
     setLoading(false)
   }
@@ -73,34 +74,43 @@ export function FormHistoriaEdit({ dados_banner }: { dados_banner: BannerProps }
         name='title'
         value={titulo}
         title='Título*'
-        placeholder='Digite o título do banner'
+        placeholder='Digite o título da história'
         onChange={(e: any) => setTitulo(e.target.value)}
       />
       <InputPrimary
-        name='title'
-        value={subtitulo}
-        title='Subtítulo*'
-        placeholder='Digite o subtítulo do banner'
-        onChange={(e: any) => setSubtitulo(e.target.value)}
+        name='data'
+        value={data}
+        title='Data*'
+        type='date'
+        placeholder='Digite a data da história'
+        onChange={(e: any) => setData(e.target.value)}
       />
-      <InputPrimary
-        name='link'
-        title='Link*'
-        value={link}
-        placeholder='Digite o link do banner'
-        onChange={(e: any) => setLink(e.target.value)}
+      <InputArea
+        name='descricao'
+        value={descricao}
+        title='Descrição*'
+        placeholder='Digite a descrição da história'
+        onChange={(e: any) => setDescricao(e.target.value)}
       />
 
-      <a href={dados_banner.imagem} target="_blank" rel="noopener noreferrer" className='w-1/2 h-auto block my-6'>
-        <TitleH4 color='text-brand-dark'>Imagem atual</TitleH4>
-        <img src={dados_banner.imagem} className='w-full h-auto mx-auto rounded-lg mt-1' alt={dados_banner.titulo} />
-      </a>
-      <InputFile
-        type='image/png'
-        name='file'
-        title='Nova imagem*'
-        placeholder='Selecione uma imagem'
-      />
+      <div className='mb-3'>
+        <p className='font-bold text-brand-dark text-center lg:text-start'>
+          Selecione o status
+        </p>
+        <select
+          className=' w-full h-12 rounded-xl'
+          onChange={(e) => setStatus(e.target.value)}
+        >
+          <option value={dados_historia.ativo}>{dados_historia.ativo === 1 ? 'Ativo' : 'Inativo'}</option>
+          {dados_historia.ativo != 1 &&
+            <option value='ativo'>Ativo</option>
+          }
+          {dados_historia.ativo != 0 &&
+            <option value='inativo'>Inativo</option>
+          }
+        </select>
+      </div>
+
       <div className='w-72 mx-auto'>
         <ButtonPrimary isLoading={loading} full onClick={atualizaBanner}>
           Atualizar História

@@ -4,54 +4,51 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { api, api_v1 } from '@/services/axios'
 import InputArea from '@/components/Forms/InputArea'
-import InputFile from '@/components/Forms/InputFile'
 import InputPrimary from '@/components/Forms/InputPrimary'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+import formatDate from '@/hooks/useFormateData'
 
 export function FormHistoria() {
   const navigate = useRouter()
-  const [link, setLink] = useState('')
-  const [title, setTitle] = useState('')
-  const [subTitle, setSubTitle] = useState('')
+  const [titulo, setTitulo] = useState('')
   const [loading, setLoading] = useState(false)
+  const [descricao, setDescricao] = useState('')
+  const [data, setData] = useState(new Date().toISOString().split('T')[0])
 
   async function validaBanner() {
-    if (!title) {
-      toast.error('O campo Título do banner é obrigatório')
+    if (!titulo) {
+      toast.error('O campo Título é obrigatório')
       return;
     }
-    if (!subTitle) {
-      toast.error('O campo Subtítulo do banner é obrigatório')
+    if (!data) {
+      toast.error('O campo Data é obrigatório')
+      return;
+    }
+    if (!descricao) {
+      toast.error('O campo Descrição é obrigatório')
       return;
     }
 
     setLoading(true)
 
     const formData = new FormData() as any
-    formData.append('titulo', title)
-    formData.append('subtitulo', subTitle)
-    formData.append('link', link)
-    const fileInput = document.querySelector('input[type="file"]') as any
-    if (fileInput && fileInput.files && fileInput.files.length > 0) {
-      formData.append('imagem', fileInput.files[0])
-    }
-
-    // console.log('formData:', formData.get('titulo'), formData.get('subtitulo'), formData.get('link'), formData.get('imagem'))
-
+    formData.append('titulo', titulo)
+    formData.append('descricao', descricao)
+    formData.append('data', data)
 
     try {
-      const data = await api_v1.post(`/banner`, formData)
+      const data = await api_v1.post(`/historia`, formData)
       if (data.status === 201) {
-        toast.success('Banner cadastrado com sucesso')
+        toast.success('História cadastrado com sucesso')
         navigate.back()
         return;
       } else {
-        toast.error('Erro ao cadastrar banner')
+        toast.error('Erro ao cadastrar História')
         return;
       }
     } catch (error: any) {
-      toast.error('Erro ao cadastrar banner')
-      console.error('POST - Cadastro de banner:', error.response);
+      toast.error('Erro ao cadastrar História')
+      console.error('POST - Cadastro de História:', error.response);
     }
     setLoading(false)
   }
@@ -60,31 +57,28 @@ export function FormHistoria() {
     <div className='p-5 '>
       <InputPrimary
         name='title'
+        value={titulo}
         title='Título*'
-        placeholder='Digite o título do história'
-        onChange={(e: any) => setTitle(e.target.value)}
+        placeholder='Digite o título da história'
+        onChange={(e: any) => setTitulo(e.target.value)}
       />
       <InputPrimary
-        name='subtitle'
-        title='Subtítulo*'
-        placeholder='Digite o subtítulo do história'
-        onChange={(e: any) => setSubTitle(e.target.value)}
+        name='data'
+        value={formatDate(data)}
+        title='Data*'
+        placeholder='Digite a data da história'
+        onChange={(e: any) => setData(e.target.value)}
       />
-      <InputPrimary
-        name='link'
-        title='Link*'
-        placeholder='Digite o Link do história'
-        onChange={(e: any) => setLink(e.target.value)}
-      />
-      <InputFile
-        name='file'
-        type='image/png'
-        title='Anexar imagem do tipo .png*'
-        placeholder='Selecione uma imagem (.png)'
+      <InputArea
+        name='descricao'
+        value={descricao}
+        title='Descrição*'
+        placeholder='Digite a descrição da história'
+        onChange={(e: any) => setDescricao(e.target.value)}
       />
       <div className='w-72 mx-auto'>
         <ButtonPrimary isLoading={loading} full onClick={validaBanner}>
-          Cadastrar banner
+          Cadastrar história
         </ButtonPrimary>
       </div>
     </div>

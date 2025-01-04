@@ -4,6 +4,9 @@ import { ButtonBack } from "@/components/Partials/Dashboard/ButtonBack"
 import HeaderPageDashboard from "@/components/Header/HeaderPageDashboard"
 import { getBannersDetalhes } from "@/services/prismicData/getBannersDetalhes"
 import { FormBannerEdit } from "@/components/Partials/Dashboard/Banner/FormBannerEdit"
+import { FormHistoria } from "@/components/Partials/Dashboard/Historia/FormHistoria"
+import { FormHistoriaEdit } from "@/components/Partials/Dashboard/Historia/FormHistoriaEdit"
+import { getHistoriaDetalhes } from "@/services/prismicData/getHistoriaDetalhes"
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   return {
@@ -13,15 +16,16 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const detalhe_banner = await getBannersDetalhes(params.id)
+  const detalhes_historia = await getHistoriaDetalhes(params.id)
+  console.log(detalhes_historia);
 
   return (
     <div>
       <HeaderPageDashboard title='Controle de História' />
       <div className="py-12">
         <Container>
-          <ButtonBack title='Edição de Banner' />
-          <FormBannerEdit dados_banner={detalhe_banner} />
+          <ButtonBack title='Edição de História' />
+          <FormHistoriaEdit dados_historia={detalhes_historia} />
         </Container>
       </div>
     </div>
