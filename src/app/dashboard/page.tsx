@@ -39,10 +39,10 @@ export default function Home() {
     },
     {
       id: 5,
-      icon: "user",
-      route: "/dashboard/obreiros",
-      title: "Cadastro de Obreiro",
-      description: "Cadastro de obreiros para ter acesso ao sistema."
+      icon: "atas",
+      route: "/dashboard/historia",
+      title: "Cadastro de História",
+      description: "Cadastro de conteúdos do histórico da Loja."
     }
   ]
 

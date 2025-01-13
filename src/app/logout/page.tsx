@@ -12,7 +12,7 @@ export default function Home() {
 
 
   async function onLogout() {
-    addCookie('logado', '')
+    addCookie('logado', 'false')
     navigation.push('/')
   }
 
