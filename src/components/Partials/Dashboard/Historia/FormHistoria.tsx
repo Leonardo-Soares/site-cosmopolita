@@ -35,6 +35,8 @@ export function FormHistoria() {
     formData.append('titulo', titulo)
     formData.append('descricao', descricao)
     formData.append('data', data)
+    formData.append('autor', 'Cosmopolita')
+    formData.append('ativo', 1)
 
     try {
       const data = await api_v1.post(`/historia`, formData)
@@ -64,8 +66,8 @@ export function FormHistoria() {
       />
       <InputPrimary
         name='data'
-        value={formatDate(data)}
         title='Data*'
+        type='date'
         placeholder='Digite a data da história'
         onChange={(e: any) => setData(e.target.value)}
       />

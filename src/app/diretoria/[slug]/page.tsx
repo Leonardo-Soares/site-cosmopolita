@@ -68,7 +68,7 @@ export default async function Home({ params }: { params: { slug: string } }) {
               <p className='text-md text-brand-gray-700 border-solid border-b-2 border-brand-gray-300 mt-4 pb-6'>
                 {diretor_api.descricao}
               </p>
-              <div className='mt-6'>
+              {/* <div className='mt-6'>
                 <TitleH4 color='text-brand-dark'>Histórico</TitleH4>
                 <div className='max-h-[520px] overflow-auto'>
                   {diretor.historico.map((item) => (
@@ -82,7 +82,7 @@ export default async function Home({ params }: { params: { slug: string } }) {
                     </div>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
 
 

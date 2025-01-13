@@ -116,8 +116,13 @@ export default function Home() {
       }
 
     } catch (error: any) {
-      toast.error('Erro ao realizar cadastro, tente novamente mais tarde')
-      console.log(error.response)
+      if (error.response?.data?.Errors?.cpf) {
+        toast.error('Esse CPF já possui cadastro')
+      } else if (error.response?.data?.Errors?.email) {
+        toast.error('Esse e-mail já possui cadastro')
+      } else {
+        toast.error('Erro ao realizar cadastro, tente novamente mais tarde')
+      }
     }
   }
 
@@ -165,7 +170,7 @@ export default function Home() {
               <img
                 src="../img/temp/foto-exemplo.jpeg"
                 alt="Foto de obreiros da Loja Cosmopolita"
-                className='w-full sticky top-44 h-[400px] border-solid border-brand-blue border-4 rounded-xl'
+                className='w-full sticky top-24 h-[400px] border-solid border-brand-blue border-4 rounded-xl'
               />
             </div>
             <div className='flex flex-col justify-center order-1 lg:order-2'>
