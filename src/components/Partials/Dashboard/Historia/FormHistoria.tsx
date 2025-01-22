@@ -36,7 +36,7 @@ export function FormHistoria() {
     formData.append('descricao', descricao)
     formData.append('data', data)
     formData.append('autor', 'Cosmopolita')
-    formData.append('ativo', 1)
+    formData.append('ativo', 0)
 
     try {
       const data = await api_v1.post(`/historia`, formData)

@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import TopBar from './TopBar'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import NavLinks from './NavLinks'
 import Icon from '../Adapters/Icon'
 import { useWindowScroll } from 'react-use'
@@ -14,8 +14,19 @@ export function Header() {
   const { addCookie, getCookie } = useCookies()
   const { setShowMenuHamburguer } = useMenuHamburguerStore()
   const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
-  const authenticated = getCookie('logado')
+  const [logado, setLogado] = useState('')
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const authenticated = getCookie('logado');
+      setLogado(authenticated ?? 'false')
+      console.log('Authenticated:', authenticated);
+      // Aqui você pode adicionar qualquer lógica adicional para lidar com o valor de 'authenticated'
+    }, 3000); // Executa a cada 3 segundos
+
+    // Limpa o intervalo ao desmontar o componente
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -26,7 +37,7 @@ export function Header() {
       className={`sticky top-0 z-50 w-full shadow-xl backdrop-blur transition-all border-b-2 border-brand-blue `}
     >
       <TopBar />
-      {authenticated === 'true' &&
+      {logado === 'true' &&
         <Container>
           <div className="flex items-center justify-between">
             <Link href="/">

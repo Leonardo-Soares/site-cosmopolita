@@ -45,8 +45,8 @@ export default function Login() {
       if (response.status === 201) {
         toast.success('Login efetuado com sucesso')
         addCookie('logado', 'true')
-        setLoading(false)
         router.push('/home')
+        setLoading(false)
         return
       }
     } catch (error: any) {

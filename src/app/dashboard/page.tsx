@@ -43,6 +43,13 @@ export default function Home() {
       route: "/dashboard/historia",
       title: "Cadastro de História",
       description: "Cadastro de conteúdos do histórico da Loja."
+    },
+    {
+      id: 6,
+      icon: "users",
+      route: "/dashboard/usuarios",
+      title: "Aprovar usuários",
+      description: "Dedicado ao Venerável para aprovar novos usuários."
     }
   ]
 
