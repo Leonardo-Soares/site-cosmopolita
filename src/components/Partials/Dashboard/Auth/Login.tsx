@@ -45,6 +45,7 @@ export default function Login() {
       if (response.status === 201) {
         toast.success('Login efetuado com sucesso')
         addCookie('logado', 'true')
+        addCookie('cargo', response.data.honoravel)
         router.push('/home')
         setLoading(false)
         return

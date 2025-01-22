@@ -11,7 +11,7 @@ export default function Footer() {
   const authenticated = getCookie('logado')
 
   useEffect(() => {
-    console.log('footer', authenticated);
+
   }, [getCookie, authenticated])
 
   return (

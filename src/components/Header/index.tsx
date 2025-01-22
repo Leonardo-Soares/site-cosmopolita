@@ -20,7 +20,6 @@ export function Header() {
     const interval = setInterval(() => {
       const authenticated = getCookie('logado');
       setLogado(authenticated ?? 'false')
-      console.log('Authenticated:', authenticated);
       // Aqui você pode adicionar qualquer lógica adicional para lidar com o valor de 'authenticated'
     }, 3000); // Executa a cada 3 segundos
 

@@ -3,9 +3,12 @@ import Link from 'next/link'
 import useNavLinks from '@/hooks/useNavLinks'
 import { DropdownHover } from './DropdownHover'
 import { useSelectedLayoutSegment } from 'next/navigation'
+import { useCookies } from '@/stores/useCookies'
 
 export default function NavLinks() {
-  const { navLinks } = useNavLinks()
+  const { getCookie } = useCookies()
+  const cargoAtual = getCookie('cargo')
+  const { navLinks } = useNavLinks(cargoAtual)
   const segment = useSelectedLayoutSegment()
 
   return (
@@ -43,6 +46,16 @@ export default function NavLinks() {
           </Link>
         )
       })}
+      {cargoAtual === 'obreiro' &&
+        <Link href={'/logout'}>
+          <span
+            className={`'font-bold' cursor-pointer text-brand-gray-700 hover:opacity-70`}
+            suppressHydrationWarning
+          >
+            Sair
+          </span>
+        </Link>
+      }
     </>
   )
 }

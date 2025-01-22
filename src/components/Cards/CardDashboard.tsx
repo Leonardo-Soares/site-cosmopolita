@@ -1,6 +1,8 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
+import { useCookies } from '@/stores/useCookies'
 
 type Props = {
   item: any
@@ -8,6 +10,9 @@ type Props = {
 }
 
 export function CardDashboard({ item, icon }: Props) {
+
+
+
   return (
     <Link href={`${item.route}`} className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
       <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-brand-blue transition-all duration-300 group-hover:scale-[10]"></span>

@@ -1,11 +1,26 @@
+'use client'
 import { TitleH1 } from '../Texts/TitleH1'
 import { Container } from '../Partials/Container'
+import { useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { useCookies } from '@/stores/useCookies'
 
 interface HeaderPageProps {
   title?: string
 }
 
 export default function HeaderPage({ title }: HeaderPageProps) {
+  const navigate = useRouter()
+  const pathname = usePathname()
+  const { getCookie } = useCookies()
+  const cargo = getCookie('cargo')
+
+  useEffect(() => {
+    if (pathname === '/dashboard' || pathname === '/dashboard/usuarios' && cargo != 'mestre') {
+      navigate.push('/home')
+    }
+  }, [pathname]);
+
   return (
     <div
       className='h-32 flex items-center'
