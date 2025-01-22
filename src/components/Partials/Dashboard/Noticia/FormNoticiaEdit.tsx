@@ -1,7 +1,7 @@
 'use client'
 import toast from 'react-hot-toast'
 import { api, api_v1 } from '@/services/axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import BannerProps from '@/hooks/useBannerProps'
 import InputFile from '@/components/Forms/InputFile'
@@ -10,6 +10,7 @@ import NoticiasProps from '@/hooks/useNoticiasProps'
 import InputPrimary from '@/components/Forms/InputPrimary'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import InputArea from '@/components/Forms/InputArea'
+import { useCookies } from '@/stores/useCookies'
 
 export function FormNoticiaEdit({ noticia }: { noticia: NoticiasProps }) {
   const navigation = useRouter()
@@ -19,6 +20,13 @@ export function FormNoticiaEdit({ noticia }: { noticia: NoticiasProps }) {
   const [resumo, setResumo] = useState(noticia.resumo)
   const [conteudo, setConteudo] = useState(noticia.conteudo)
   const [categoria, setCategoria] = useState(noticia.categoria)
+  const { getCookie } = useCookies()
+
+  const cargoAtual = getCookie('cargo')
+
+  useEffect(() => {
+    cargoAtual != 'mestre' && cargoAtual != 'secretario' ? navigation.push('/home') : null
+  }, [cargoAtual, navigation])
 
   async function atualizaNoticia() {
     if (!titulo) {

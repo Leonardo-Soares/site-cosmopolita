@@ -1,12 +1,13 @@
 'use client'
 import toast from 'react-hot-toast'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { api_v1 } from '@/services/axios'
 import { useRouter } from 'next/navigation'
 import InputFile from '@/components/Forms/InputFile'
 import InputArea from '@/components/Forms/InputArea'
 import InputPrimary from '@/components/Forms/InputPrimary'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+import { useCookies } from '@/stores/useCookies'
 
 export function FormNoticia() {
   const navigate = useRouter()
@@ -16,6 +17,13 @@ export function FormNoticia() {
   const [conteudo, setConteudo] = useState('')
   const [loading, setLoading] = useState(false)
   const [categoria, setCategoria] = useState('')
+  const { getCookie } = useCookies()
+  const navigation = useRouter()
+  const cargoAtual = getCookie('cargo')
+
+  useEffect(() => {
+    cargoAtual != 'mestre' && cargoAtual != 'secretario' ? navigation.push('/home') : null
+  }, [cargoAtual, navigation])
 
   async function validaNoticia() {
     if (!titulo) {
