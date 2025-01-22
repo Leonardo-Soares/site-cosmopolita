@@ -1,7 +1,7 @@
 'use client'
 import toast from 'react-hot-toast'
 import { api } from '@/services/axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BannerProps from '@/hooks/useBannerProps'
 import { TitleH1 } from '@/components/Texts/TitleH1'
 import InputFile from '@/components/Forms/InputFile'
@@ -13,6 +13,7 @@ import HistoriaProps from '@/hooks/useHistoriaProps'
 import InputArea from '@/components/Forms/InputArea'
 import formatDate from '@/hooks/useFormateData'
 import SelectPrimary from '@/components/Forms/SelectPrimary'
+import { useCookies } from '@/stores/useCookies'
 
 export function FormHistoriaEdit({ dados_historia }: { dados_historia: HistoriaProps }) {
   const [loading, setLoading] = useState(false)
@@ -21,6 +22,12 @@ export function FormHistoriaEdit({ dados_historia }: { dados_historia: HistoriaP
   const [titulo, setTitulo] = useState(dados_historia.titulo)
   const [status, setStatus] = useState(dados_historia.status)
   const [descricao, setDescricao] = useState(dados_historia.descricao)
+  const { getCookie } = useCookies()
+  const cargoAtual = getCookie('cargo')
+
+  useEffect(() => {
+    cargoAtual != 'mestre' && cargoAtual != 'secretario' ? navigation.push('/home') : null
+  }, [cargoAtual, navigation])
 
   async function atualizaBanner() {
     if (!titulo) {
