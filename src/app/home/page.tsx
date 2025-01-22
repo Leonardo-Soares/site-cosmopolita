@@ -1,4 +1,3 @@
-
 'use client'
 import SwiperHero from '@/components/Swipers/SwiperHero'
 import { Container } from '@/components/Partials/Container'

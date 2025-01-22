@@ -12,7 +12,7 @@ export default async function SwiperHero() {
       modules={[Pagination]}
       className="aspect-[580/580] md:aspect-[3/1] h-auto"
     >
-      {listaBanner.map((imagem: any, index: number) => {
+      {listaBanner && listaBanner.map((imagem: any, index: number) => {
         return (
           <SwiperSlide key={index}>
             <div className="bg-gradient-to-t from-black lg:from-black/80 to-transparent absolute w-full h-full" >

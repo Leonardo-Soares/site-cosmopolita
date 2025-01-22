@@ -7,12 +7,19 @@ import DiretoresProps from '@/hooks/useDiretoresProps'
 import { getDiretores } from '@/services/prismicData/getDiretores'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import { getDiretoresDetalhes } from '@/services/prismicData/getDiretoresDetalhes'
+import { useCookies } from '@/stores/useCookies'
 
 export default function TableDiretoria() {
   const navigation = useRouter()
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(false)
   const [listaDiretores, setListaDiretores] = useState<DiretoresProps[]>([])
+  const { getCookie } = useCookies()
+  const cargoAtual = getCookie('cargo')
+
+  useEffect(() => {
+    cargoAtual != 'mestre' && cargoAtual != 'secretario' ? navigation.push('/home') : null
+  }, [cargoAtual, navigation])
 
   async function buscaDiretores() {
     setLoading(true)

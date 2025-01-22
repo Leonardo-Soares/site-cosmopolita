@@ -1,14 +1,16 @@
 'use client'
 import React from 'react'
-import useMenuHamburguerStore from '../../stores/useMenuHamburguerStore'
 import { Icon } from '@iconify/react'
-import useNavLinks from '@/hooks/useNavLinks'
 import { useRouter } from 'next/navigation'
-import { ChevronDown } from 'lucide-react'
+import useNavLinks from '@/hooks/useNavLinks'
+import useMenuHamburguerStore from '../../stores/useMenuHamburguerStore'
+import { useCookies } from '@/stores/useCookies'
 
 export function MenuHamburguer() {
   const { setShowMenuHamburguer, showMenuHamburguer } = useMenuHamburguerStore()
-  const { navLinks } = useNavLinks()
+  const { getCookie } = useCookies()
+  const cargo = getCookie('cargo')
+  const { navLinks } = useNavLinks(cargo)
 
   const router = useRouter() // router.push('/')
 
@@ -55,13 +57,13 @@ export function MenuHamburguer() {
             <p className="text-center text-xl text-zinc-900">
               contato@lojacosmopolita.com.br
             </p>
-            <p className="flex items-center justify-center text-center text-xl text-zinc-900">
+            {/* <p className="flex items-center justify-center text-center text-xl text-zinc-900">
               <Icon
                 icon="mdi:whatsapp"
                 className="mr-2 text-xl text-blue-300"
               />{' '}
               (99) 9999-9999
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

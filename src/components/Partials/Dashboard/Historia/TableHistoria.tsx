@@ -11,12 +11,20 @@ import HistoriaProps from '@/hooks/useHistoriaProps'
 import { getHistorias } from '@/services/prismicData/getHistorias'
 import formatDate from '@/hooks/useFormateData'
 import { getHistoriaBusca } from '@/services/prismicData/getHistoriaBusca'
+import { useCookies } from '@/stores/useCookies'
 
 export function TableHistoria() {
   const navigation = useRouter()
   const [loading, setLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [listaHistoria, setListaHistoria] = useState<HistoriaProps[]>([])
+  const { getCookie } = useCookies()
+
+  const cargoAtual = getCookie('cargo')
+
+  useEffect(() => {
+    cargoAtual != 'mestre' && cargoAtual != 'secretario' ? navigation.push('/home') : null
+  }, [cargoAtual, navigation])
 
   async function buscaHistoria() {
     setLoading(true)

@@ -7,12 +7,20 @@ import NoticiasProps from '@/hooks/useNoticiasProps'
 import { getNoticias } from '@/services/prismicData/getNoticias'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import { getNoticiasBusca } from '@/services/prismicData/getNoticiasBusca'
+import { useCookies } from '@/stores/useCookies'
 
 export default function TableNoticia() {
   const navigation = useRouter()
   const [loading, setLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [filteredNoticias, setFilteredNoticias] = useState<NoticiasProps[]>([])
+  const { getCookie } = useCookies()
+
+  const cargoAtual = getCookie('cargo')
+
+  useEffect(() => {
+    cargoAtual != 'mestre' && cargoAtual != 'secretario' ? navigation.push('/home') : null
+  }, [cargoAtual, navigation])
 
 
   async function buscaNoticia() {

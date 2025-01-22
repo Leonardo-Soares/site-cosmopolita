@@ -1,13 +1,14 @@
 'use client'
 import toast from 'react-hot-toast'
 import { api } from '@/services/axios'
-import React, { useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import InputArea from '@/components/Forms/InputArea'
 import InputFile from '@/components/Forms/InputFile'
 import InputPrimary from '@/components/Forms/InputPrimary'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import { Loading } from '../../Loading'
+import { useCookies } from '@/stores/useCookies'
 
 export function FormAtas() {
   const navigate = useRouter()
@@ -17,6 +18,12 @@ export function FormAtas() {
   const [observacao, setObservacao] = useState('')
   const [datareuniao, setDataReuniao] = useState('')
   const [dataaprovada, setDataAprovada] = useState('')
+  const { getCookie } = useCookies()
+  const cargo = getCookie('cargo')
+
+  useEffect(() => {
+    cargo != 'mestre' && cargo != 'secretario' ? navigate.push('/home') : null
+  }, [cargo, navigate])
 
   async function postAta() {
     if (!title) {
@@ -66,6 +73,8 @@ export function FormAtas() {
     }
     setLoading(false)
   }
+
+
 
   return (
     <div className='p-5 '>

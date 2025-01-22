@@ -1,13 +1,15 @@
 'use client'
 import toast from 'react-hot-toast'
 import { api } from '@/services/axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AtasProp from '@/hooks/useAtasProps'
 import InputArea from '@/components/Forms/InputArea'
 import { TitleH1 } from '@/components/Texts/TitleH1'
 import InputFile from '@/components/Forms/InputFile'
 import InputPrimary from '@/components/Forms/InputPrimary'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+import { useCookies } from '@/stores/useCookies'
+import { useRouter } from 'next/navigation'
 
 export function FormAtasEdit({ id_ata, dados_ata }: { dados_ata: AtasProp, id_ata: any }) {
   const [loading, setLoading] = useState(false)
@@ -17,6 +19,13 @@ export function FormAtasEdit({ id_ata, dados_ata }: { dados_ata: AtasProp, id_at
   const [datareuniao, setDataReuniao] = useState(dados_ata.data_reuniao)
   const [dataaprovada, setDataAprovada] = useState(dados_ata.data_aprovacao)
   const [observacao, setObservacao] = useState(dados_ata.observacao ?? 'sem observação')
+  const navigate = useRouter()
+  const { getCookie } = useCookies()
+  const cargo = getCookie('cargo')
+
+  useEffect(() => {
+    cargo != 'mestre' && cargo != 'secretario' ? navigate.push('/home') : null
+  }, [cargo, navigate])
 
   async function putAta() {
     if (!title) {
