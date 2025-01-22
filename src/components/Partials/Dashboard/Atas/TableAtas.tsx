@@ -10,6 +10,7 @@ import { getAtas } from '@/services/prismicData/getAtas'
 import { getAtasBusca } from '@/services/prismicData/getAtasBusca'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import { getAtasDetalhes } from '@/services/prismicData/getAtasDetalhes'
+import { useCookies } from '@/stores/useCookies'
 
 export function TableAtas() {
   const router = useRouter() as any
@@ -21,6 +22,12 @@ export function TableAtas() {
   const [modalEdit, setModalEdit] = useState(false)
   const [modalDelete, setModalDelete] = useState(false)
   const [listaAtas, setListaAtas] = useState<AtasProp[]>([])
+  const { getCookie } = useCookies()
+  const cargo = getCookie('cargo')
+
+  useEffect(() => {
+    cargo != 'mestre' && cargo != 'secretario' ? router.push('/home') : null
+  }, [cargo, router])
 
   function openModal(nome: string, id: any) {
     setNomeAta(nome)
