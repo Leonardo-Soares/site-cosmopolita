@@ -12,11 +12,13 @@ type Props = {
   idUser: string
   grau: string
   telefone: string
-  ativaButton: boolean
+  buttonAtivarUSuario: boolean
+  buttonDesativarUsuario: boolean
+  reativarUSuario?: boolean
   icon: 'user' | 'banner' | 'news' | 'users' | 'atas' | string
 }
 
-export function CardUsuario({ icon, nome, cim, grau, telefone, idUser, ativaButton }: Props) {
+export function CardUsuario({ icon, nome, cim, grau, telefone, idUser, buttonAtivarUSuario, buttonDesativarUsuario }: Props) {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useRouter()
 
@@ -80,16 +82,18 @@ export function CardUsuario({ icon, nome, cim, grau, telefone, idUser, ativaButt
             }</b>
           </a>
 
-          {ativaButton &&
-            <div className='flex flex-col w-full justify-between pt-4'>
+          <div className='flex flex-col w-full justify-between pt-4'>
+            {buttonAtivarUSuario &&
               <ButtonPrimary isLoading={isLoading} onClick={() => postAtualizaUsuario('ativo', idUser)} backgroundColor='bg-green-600' color='text-white' borderColor='border-green-600' full>
                 Aprovar
               </ButtonPrimary>
+            }
+            {buttonDesativarUsuario &&
               <ButtonPrimary isLoading={isLoading} onClick={() => postAtualizaUsuario('aguardando', idUser)} backgroundColor='bg-red-600' color='text-white' borderColor='border-red-600' full>
-                Reprovar
+                Reprovar ou Desativar
               </ButtonPrimary>
-            </div>
-          }
+            }
+          </div>
         </div>
       </div>
     </div>

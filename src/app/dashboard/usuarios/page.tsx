@@ -23,13 +23,14 @@ export default async function Home() {
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4'>
             {listaUsuarios && listaUsuarios.filter(usuario => usuario.status === 'aguardando').map(usuario =>
               <CardUsuario
-                icon={'users'}
+                icon={'user'}
                 nome={usuario.nome}
                 idUser={usuario.id}
                 cim={usuario.cim}
                 grau={usuario.grau}
                 key={usuario.id}
-                ativaButton
+                buttonAtivarUSuario
+                buttonDesativarUsuario
                 telefone={usuario.telefone}
               />
             )}
@@ -39,19 +40,20 @@ export default async function Home() {
               Nenhum usuário aguardando aprovação
             </p>
           }
-          <h2 className='text-2xl font-semibold text-center text-red-800 mt-12'>
+          <h2 className='text-2xl font-semibold text-center text-red-800 mt-12 mb-4'>
             Usuários reprovados
           </h2>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4'>
             {listaUsuarios && listaUsuarios.filter(usuario => usuario.status === 'desativo').map(usuario =>
               <CardUsuario
-                icon={'users'}
+                icon={'user'}
                 nome={usuario.nome}
                 idUser={usuario.id}
                 cim={usuario.cim}
                 grau={usuario.grau}
                 key={usuario.id}
-                ativaButton={false}
+                buttonAtivarUSuario
+                buttonDesativarUsuario={false}
                 telefone={usuario.telefone}
               />
             )}
@@ -62,19 +64,20 @@ export default async function Home() {
             </p>
           }
 
-          <h2 className='text-2xl font-semibold text-center text-brand-blue mt-12'>
+          <h2 className='text-2xl font-semibold text-center text-brand-blue mt-12 mb-4'>
             Usuários Ativos
           </h2>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4'>
             {listaUsuarios && listaUsuarios.filter(usuario => usuario.status === 'ativo').map(usuario =>
               <CardUsuario
-                icon={'users'}
+                icon={'user'}
                 nome={usuario.nome}
                 idUser={usuario.id}
                 cim={usuario.cim}
                 grau={usuario.grau}
                 key={usuario.id}
-                ativaButton={false}
+                buttonAtivarUSuario={false}
+                buttonDesativarUsuario={true}
                 telefone={usuario.telefone}
               />
             )}
