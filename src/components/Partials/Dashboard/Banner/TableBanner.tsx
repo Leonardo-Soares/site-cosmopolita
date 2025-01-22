@@ -7,12 +7,19 @@ import { getBanners } from '@/services/prismicData/getBanners'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import Link from 'next/link'
 import { getBannersBusca } from '@/services/prismicData/getBannersBusca'
+import { useCookies } from '@/stores/useCookies'
 
 export function TableBanner() {
   const navigation = useRouter()
   const [loading, setLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [listaBanners, setListaBanners] = useState<BannerProps[]>([])
+  const { getCookie } = useCookies()
+  const cargo = getCookie('cargo')
+
+  useEffect(() => {
+    cargo != 'mestre' && cargo != 'secretario' ? navigation.push('/home') : null
+  }, [cargo, navigation])
 
   async function buscaBanner() {
     setLoading(true)

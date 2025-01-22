@@ -1,12 +1,13 @@
 'use client'
 import toast from 'react-hot-toast'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { api, api_v1 } from '@/services/axios'
 import InputArea from '@/components/Forms/InputArea'
 import InputFile from '@/components/Forms/InputFile'
 import InputPrimary from '@/components/Forms/InputPrimary'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
+import { useCookies } from '@/stores/useCookies'
 
 export function FormBanner() {
   const navigate = useRouter()
@@ -14,6 +15,12 @@ export function FormBanner() {
   const [title, setTitle] = useState('')
   const [subTitle, setSubTitle] = useState('')
   const [loading, setLoading] = useState(false)
+  const { getCookie } = useCookies()
+  const cargo = getCookie('cargo')
+
+  useEffect(() => {
+    cargo != 'mestre' && cargo != 'secretario' ? navigate.push('/home') : null
+  }, [cargo, navigate])
 
   async function validaBanner() {
     if (!title) {

@@ -1,7 +1,7 @@
 'use client'
 import toast from 'react-hot-toast'
 import { api } from '@/services/axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BannerProps from '@/hooks/useBannerProps'
 import { TitleH1 } from '@/components/Texts/TitleH1'
 import InputFile from '@/components/Forms/InputFile'
@@ -9,6 +9,7 @@ import InputPrimary from '@/components/Forms/InputPrimary'
 import { ButtonPrimary } from '@/components/Buttons/ButtonPrimary'
 import { TitleH4 } from '@/components/Texts/TitleH4'
 import { useRouter } from 'next/navigation'
+import { useCookies } from '@/stores/useCookies'
 
 export function FormBannerEdit({ dados_banner }: { dados_banner: BannerProps }) {
   const [loading, setLoading] = useState(false)
@@ -16,6 +17,12 @@ export function FormBannerEdit({ dados_banner }: { dados_banner: BannerProps }) 
   const [link, setLink] = useState(dados_banner.link)
   const [titulo, setTitulo] = useState(dados_banner.titulo)
   const [subtitulo, setSubtitulo] = useState(dados_banner.subtitulo)
+  const { getCookie } = useCookies()
+  const cargo = getCookie('cargo')
+
+  useEffect(() => {
+    cargo != 'mestre' && cargo != 'secretario' ? navigation.push('/home') : null
+  }, [cargo, navigation])
 
   async function atualizaBanner() {
     if (!titulo) {
