@@ -4,10 +4,13 @@ import { Icon } from '@iconify/react'
 import { useRouter } from 'next/navigation'
 import useNavLinks from '@/hooks/useNavLinks'
 import useMenuHamburguerStore from '../../stores/useMenuHamburguerStore'
+import { useCookies } from '@/stores/useCookies'
 
 export function MenuHamburguer() {
   const { setShowMenuHamburguer, showMenuHamburguer } = useMenuHamburguerStore()
-  const { navLinks } = useNavLinks()
+  const { getCookie } = useCookies()
+  const cargo = getCookie('cargo')
+  const { navLinks } = useNavLinks(cargo)
 
   const router = useRouter() // router.push('/')
 
