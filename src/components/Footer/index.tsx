@@ -3,16 +3,22 @@ import useLang from '@/hooks/useLang'
 import { Copyright } from './Copyright'
 import { useCookies } from '@/stores/useCookies'
 import { Container } from '../Partials/Container'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Footer() {
   const { stringData } = useLang()
   const { getCookie } = useCookies()
-  const authenticated = getCookie('logado')
+  const [authenticated, setAuthenticated] = useState('')
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      const auth = getCookie('logado');
+      setAuthenticated(auth ?? 'false')
+    }, 3000); // Executa a cada 3 segundos
 
-  }, [getCookie, authenticated])
+    // Limpa o intervalo ao desmontar o componente
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <footer className={`border-t-2 border-brand-blue`}>

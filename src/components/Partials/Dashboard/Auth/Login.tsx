@@ -49,7 +49,7 @@ export default function Login() {
         router.push('/home')
         setLoading(false)
         return
-      } else if (response.status === 201 && response.data.status === 'inativo') {
+      } else if (response.status === 201 && response.data.status === 'desativo') {
         toast.error('Usuário inativo')
       } else if (response.status === 201 && response.data.status === 'aguardando') {
         toast.error('Usuário pendente de aprovação')
