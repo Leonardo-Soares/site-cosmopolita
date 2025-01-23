@@ -1,16 +1,25 @@
 'use client'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { useCookies } from '@/stores/useCookies'
 import SwiperHero from '@/components/Swipers/SwiperHero'
 import { Container } from '@/components/Partials/Container'
-import { useState } from 'react'
-import { SectionHistoria } from '@/components/Partials/SectionHistoria'
 import { SectionAtas } from '@/components/Partials/SectionAtas'
-import SectionPresidentes from '@/components/Partials/SectionPresidentes'
 import SectionNoticias from '@/components/Partials/SectionNoticias'
-// import { SectionInstagram } from '@/components/Sections/SectionInstagram'
-
+import { SectionHistoria } from '@/components/Partials/SectionHistoria'
+import SectionPresidentes from '@/components/Partials/SectionPresidentes'
 
 export default async function Home() {
-  const [anoHistoria, setAnoHistoria] = useState('1992')
+  const navigate = useRouter()
+  const { getCookie } = useCookies()
+  const logado = getCookie('logado')
+
+  useEffect(() => {
+    if (logado != 'true') {
+      navigate.push('/')
+    }
+  }, [logado, navigate])
+
   return (
     <main>
       <SwiperHero />
