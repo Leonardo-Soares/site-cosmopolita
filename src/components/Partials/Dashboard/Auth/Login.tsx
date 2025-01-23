@@ -42,13 +42,20 @@ export default function Login() {
         login: email,
         senha: password
       })
-      if (response.status === 201) {
+      if (response.status === 201 && response.data.status === 'ativo') {
         toast.success('Login efetuado com sucesso')
         addCookie('logado', 'true')
         addCookie('cargo', response.data.honoravel)
         router.push('/home')
         setLoading(false)
         return
+      } else if (response.status === 201 && response.data.status === 'inativo') {
+        toast.error('Usuário inativo')
+      } else if (response.status === 201 && response.data.status === 'aguardando') {
+        toast.error('Usuário pendente de aprovação')
+        router.push('/login-inativo')
+      } else {
+        toast.error('Error ao efetuar login')
       }
     } catch (error: any) {
       console.log(error)
